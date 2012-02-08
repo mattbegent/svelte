@@ -1,0 +1,596 @@
+<!doctype html>
+<head>
+	<meta charset="utf-8">
+	<title>bScript - The lightweight js framework maybe...</title>
+	<meta name="description" content="A lightweight javascript framework">
+	<meta name="description" author="Matt Begent">
+	<link rel="stylesheet" href="style.css">
+	<!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+<body class="home">
+
+<div class="main">
+	<header>
+		<h1>bScript - The lightweight js framework maybe...</h1>
+	</header>
+
+	<section>
+		<header>
+			<h1>Tabs</h1>
+		</header>
+		<div class="tabs">
+			<ul>
+				<li class="first">1</li>
+				<li class="second">2</li>
+				<li class="third">3</li>
+			</ul>
+			<div class="tab-container">
+				<div class="first">
+					<p>First Tab</p>
+				</div>
+
+				<div class="second">
+					<p>Second Tab</p>
+				</div>
+
+				<div class="third">
+					<p>Third Tab</p>
+				</div>
+			</div>
+
+		</div>
+	</section>
+    
+    <section>
+		<header>
+			<h1>Test</h1>
+		</header>
+		<div class="inner">
+			<div class="test-class">
+				<h3><a href="#">h3</a></h3>
+				<h4>h4</h4>
+			</div>
+	        <p id="pId">Id</p>
+	        <div class="out-class">
+	            <div class="hello">1</div>
+	            <div class="goodbye">2</div>
+	            <div>3</div>
+	        </div>
+        </div>
+	</section>
+	
+	<section>
+		<header>
+			<h1>Aims</h1>
+		</header>
+		<div class="inner">
+			<ul>
+				<li>Be lightweight</li>
+				<li>Make javascript easy</li>
+				<li>Replace jQuery on small projects</li>
+				<li>Support ie7 +</li>
+			</ul>
+		</div>
+	</section>
+	
+	<section>
+	<header>
+		<h1>Getting Started</h1>
+	</header>
+	<div class="inner">
+		<p>Link to:</p>
+		<code>&lt;script src="http://mattbegent.co.uk/bScript/bScript.min.js"&gt;&lt;/script&gt;</code>
+		<p>Go!</p>
+		<code>
+		<span>DomLoaded.load(function() {</span>
+		<span>//Functions below here</span>
+		<span>});</span> 
+		</code>
+	</div>
+	</section>
+	
+	<section>
+		<header>
+			<h1>Css</h1>
+		</header>
+		<div class="inner">
+			<p><strong>Usage</strong></p>
+			<code>$(selector).css(propertyName,Value);</code>
+			<p class="note">This method can be chained.</p>
+			<p><strong>Example</strong></p>
+			<code>$('example-css').css('color','red').css('textDecoration','underline');</code>
+			<p class="example-css example">Css Example</p>	
+		</div>
+	</section>
+	
+	<section>
+		<header>
+			<h1>Hide</h1>
+		</header>
+		<div class="inner">
+			<p><strong>Usage</strong></p>
+			<code>$(selector).hide();</code></p>
+			<p class="note">This method can be chained.</p>
+			<p><strong>Example</strong></p>
+			<code>$('example-hide').hide();</code>
+			<p class="example-hide example">Hide Example</p>
+			<p><small>Nothing to see above ^</small></p>
+		</div>
+	</section>
+	
+	<section>
+		<header>
+			<h1>Show</h1>
+		</header>
+			<div class="inner">
+			<p><strong>Usage</strong></p>
+			<code>$(selector).show();</code></p>
+			<p class="note">This method can be chained.</p>
+			<p><strong>Example</strong></p>
+			<code>$('example-show').hide().show();</code>
+			<p class="example-show example">Show Example</p>
+		</div>
+	</section>
+	
+	<section>
+		<header>
+			<h1>Toggle</h1>
+		</header>
+		<div class="inner">
+			<p><strong>Usage</strong></p>
+			<code>$(selector).toggle();</code></p>
+			<p class="note">This method can be chained.</p>
+			<p><strong>Example</strong></p>
+			<code>
+			<span>$('example-toggle-but').event('click', function(){</span>
+	     		<span>$('example-toggle').toggle();</span>  	
+	    	<span>});
+	    	</code>
+			<p class="example-toggle example">Toggle</p>
+			<input type="submit" class="example-toggle-but button" value="Toggle" />
+		</div>
+	</section>
+	
+	<section>
+		<header>
+			<h1>Add Class</h1>
+		</header>
+		<div class="inner">
+			<p><strong>Usage</strong></p>
+			<code>$(selector).addClass(classToAdd);</code></p>
+			<p class="note">This method can be chained.</p>
+			<p><strong>Example</strong></p>
+			<code>
+			$('example-addClass').addClass('mrclass');
+	    	</code>
+			<p class="example-addClass example">Inspect me to see my new class</p>
+		</div>
+	</section>
+	
+	<section>
+		<header>
+			<h1>Remove Class</h1>
+		</header>
+		<div class="inner">
+			<p><strong>Usage</strong></p>
+			<code>$(selector).removeClass(classToRemove);</code></p>
+			<p class="note">This method can be chained.</p>
+			<p><strong>Example</strong></p>
+			<code>
+			$('example-removeClass').removeClass('ilostthisclass');
+	    	</code>
+			<p class="example-removeClass ilostthisclass example">Inspect me to see that I have lost a class</p>
+		</div>
+	</section>
+	
+	<section>
+		<header>
+			<h1>Has Class</h1>
+		</header>
+		<div class="inner">
+			<p><strong>Usage</strong></p>
+			<code>$(selector).hasClass(classToCheck);</code></p>
+			<p><strong>Example</strong></p>
+			<code>
+			$('example-hasClass').hasClass('ihavethisclass');
+	    	</code>
+			<p class="example-hasClass ihavethisclass example">Do I have this class?</p>
+			<input type="submit" class="example-hasclass-but button" value="Has Class?" />
+		</div>
+	</section>
+	
+	<section>
+		<header>
+			<h1>Text</h1>
+		</header>
+		<div class="inner">
+			<p><strong>Usage</strong></p>
+			<code>$(selector).text(newText);</code></p>
+			<p class="note">This method can be chained.</p>
+			<p><strong>Example</strong></p>
+			<code>
+			$('example-text').text('This is the new text!');
+	    	</code>
+			<p class="example-text example">This is old text!</p>
+		</div>
+	</section>
+	
+	<section>
+		<header>
+			<h1>Html</h1>
+		</header>
+		<div class="inner">
+			<p><strong>Usage</strong></p>
+			<code>$(selector).html();</code></p>
+			<p class="note">This method can be chained and returns the html of a class</p>
+			<p><strong>Example</strong></p>
+			<code>
+			<span>var exampleHTML = $('example-html').html();</span>
+	    	<span>$('example-html-output').text(exampleHTML);</span>
+	    	</code>
+			<p class="example-html example">Please show my html</p>
+			<code class="example-html-output">
+			</code>
+		</div>
+	</section>
+	
+	<section>
+		<header>
+			<h1>Remove</h1>
+		</header>
+		<div class="inner">
+			<p><strong>Usage</strong></p>
+			<code>$(selector).remove(classToRemove);</code></p>
+			<p><strong>Example</strong></p>
+			<code>
+			$('example-remove').remove();
+	    	</code>
+			<p class="example-remove example">I have been removed!</p>
+		</div>
+	</section>
+	
+	<section>
+		<header>
+			<h1>Set Attribute</h1>
+		</header>
+		<div class="inner">
+			<p><strong>Usage</strong></p>
+			<code>$(selector).setAttr(attrName, attrValue);</code></p>
+			<p><strong>Example</strong></p>
+			<code>
+			$('example-setAttr').setAttr('data','hello');
+	    	</code>
+			<p class="example-setAttr example">Check out my new attribute of data=hello</p>
+		</div>
+	</section>
+    
+    <section>
+		<header>
+			<h1>Remove Attribute</h1>
+		</header>
+		<div class="inner">
+			<p><strong>Usage</strong></p>
+			<code>$(selector).removeAttr(attrName, attrValue);</code></p>
+			<p><strong>Example</strong></p>
+			<code>
+			$('example-removeAttr').removeAttr('data','goodbye');
+	    	</code>
+			<p class="example-removeAttr example" data="goodbye">I have lost my data=goodbye attribute</p>
+		</div>
+	</section>
+    
+    <section>
+		<header>
+			<h1>Get Attribute</h1>
+		</header>
+		<div class="inner">
+			<p><strong>Usage</strong></p>
+			<code>$(selector).getAttr(attrName, attrValue);</code></p>
+			<p><strong>Example</strong></p>
+			<code>
+			<span>var exampleAttr = $('example-getAttr').getAttr('data');</span>
+	        <span>$('example-getAttr').text("My data attribute is " + exampleAttr);</span>
+	    	</code>
+			<p class="example-getAttr example" data="so cool"></p>
+		</div>
+	</section>
+    
+    <section>
+		<header>
+			<h1>First Child</h1>
+		</header>
+		<div class="inner">
+			<p><strong>Usage</strong></p>
+			<code>$(selector).firstChild();</code></p>
+			<p><strong>Example</strong></p>
+			<code>
+			$('example-firstChild').firstChild().css('color','red');
+	    	</code>
+			<div class="example-firstChild example">
+	            <p>First</p>
+	            <p>Second</p>
+	            <p>Third</p>
+	            <p>Four</p>
+	            <p>Fifth</p>
+	        </div>
+        </div>
+	</section>
+    
+    <section>
+		<header>
+			<h1>Last Child</h1>
+		</header>
+		<div class="inner">
+			<p><strong>Usage</strong></p>
+			<code>$(selector).lastChild();</code></p>
+			<p><strong>Example</strong></p>
+			<code>
+			$('example-lastChild').lastChild().css('color','red');
+	    	</code>
+			<div class="example-lastChild example">
+	            <p>First</p>
+	            <p>Second</p>
+	            <p>Third</p>
+	            <p>Four</p>
+	            <p>Fifth</p>
+	        </div>
+        </div>
+	</section>
+    
+    <section>
+		<header>
+			<h1>Nth Child</h1>
+		</header>
+		<div class="inner">
+			<p><strong>Usage</strong></p>
+			<code>$(selector).nthChild();</code></p>
+			<p><strong>Example</strong></p>
+			<code>
+			$('example-nthChild').nthChild('3').css('color','red');
+	    	</code>
+			<div class="example-nthChild example">
+	            <p>First</p>
+	            <p>Second</p>
+	            <p>Third</p>
+	            <p>Four</p>
+	            <p>Fifth</p>
+	        </div>
+        </div>
+	</section>
+    
+    <section>
+		<header>
+			<h1>Children</h1>
+		</header>
+		<div class="inner">
+			<p><strong>Usage</strong></p>
+			<code>$(selector).children();</code></p>
+			<p><strong>Example</strong></p>
+			<code>
+			$('example-children').children().css('color','red');
+	    	</code>
+			<div class="example-children example">
+	            <p>First</p>
+	            <p>Second</p>
+	            <p>Third</p>
+	            <p>Four</p>
+	            <p>Fifth</p>
+	        </div>
+        </div>
+	</section>
+    
+    <section>
+		<header>
+			<h1>Parent</h1>
+		</header>
+		<div class="inner">
+			<p><strong>Usage</strong></p>
+			<code>$(selector).parent();</code></p>
+			<p><strong>Example</strong></p>
+			<code>
+			<span>$('example-find-my-parent').parent().css('color','red');</span>
+	    	</code>
+			<div class="example-parent example">Parent
+	            <p class="example-find-my-parent">I am a child</p>
+	        </div>
+        </div>
+	</section>
+    
+    <section>
+		<header>
+			<h1>Next</h1>
+		</header>
+		<div class="inner">
+			<p><strong>Usage</strong></p>
+			<code>$(selector).next();</code></p>
+			<p><strong>Example</strong></p>
+			<code>
+			<span>$('example-next').next().css('color','red');</span>
+	    	</code>
+	        <div class="example">
+	            <p class="example-next">Next me</p>
+	            <p>I am next</p>
+	            <p>I am not next</p>
+	            <p>I am certainly not next</p>
+	        </div>
+        </div>
+	</section>
+	
+	<section>
+		<header>
+			<h1>Events</h1>
+		</header>
+		<div class="inner">
+			<p><strong>Usage</strong></p>
+			<code>
+			$(selector).eventType(eventType, function);
+	    	</code></p>
+			<p><strong>Example</strong></p>
+			<code>
+			<span>$('example-eventType-but').eventType('click', function(){</span>
+	     	<span>alert('Clicked'); </span>	
+	    	<span>});</span>
+	    	</code>
+			<input type="submit" class="example-eventType-but button" value="Click Event" />
+		</div>
+	</section>
+
+</div>  
+
+</body>
+<script src="bScript.js"></script>
+<script>
+DomLoaded.load(function() {
+
+	//HelperB
+
+	helperB.setStorage("hello","goodbye");
+
+	$("body").fadeIn();
+
+	//Set up
+	$("body").fadeIn();
+	$(".inner").hide();
+    $("section header").eventType('click', function(){
+		$(this).next().toggle().toggleClass("open");	
+    });
+
+	//Tabs Example
+	$("section").hover( 
+		function(){
+			$(this).css("backgroundColor","#DEDACA");
+		},
+		function(){
+			$(this).css("backgroundColor","#E8E4D3");
+		}
+	);
+
+	$(".tab-container div").hide();
+	$(".tab-container").firstChild().show();
+	$(".tabs ul").firstChild().addClass("active");
+
+	$(".tabs li").click(function(){
+		$(".tab-container div").hide();
+		$(".tabs li").removeClass("active");
+		$(this).addClass("active");
+		var tabClass = $(this).getAttr("class").split(" ");	
+		$("div." + tabClass[0]).show().fadeIn();
+    });
+
+
+    //Css
+    $('.example-css').css('color','red').css('textDecoration','underline');
+    
+    //Hide
+    $('.example-hide').hide();
+    
+    //Show
+    $('.example-show').hide().show();
+    
+    //Toggle
+    $('.example-toggle-but').eventType('click', function(){
+    	$('.example-toggle').toggle();  	
+    });
+    
+    //AddClass
+    //$('.example-addClass').addClass('mrclass');
+    
+    //RemoveClass
+    //$('.example-removeClass').removeClass('ilostthisclass');
+    
+    //HasClass
+    //$('.example-hasclass-but').eventType('click', function(){
+    //	alert($('.example-hasClass').hasClass('ihavethisclass'));  	
+    //});
+    
+    //Text
+    //$('.example-text').text('This is the new text!');
+    
+    //Html
+    //var exampleHTML = $('.example-html').html();
+    //$('.example-html-output').text(exampleHTML);
+    
+    //Remove
+    //$('.example-remove').remove();
+    
+    //Set Attr
+    //$('.example-setAttr').setAttr('data','hello');
+    
+    //Remove Attr
+    //$('.example-removeAttr').removeAttr('data','goodbye');
+    
+    //Remove Attr
+    //$('.example-removeAttr').removeAttr('data','goodbye');
+    
+    //Get Attr
+    //var exampleAttr = $('.example-getAttr').getAttr('data');
+    //$('.example-getAttr').text("My data attribute is " + exampleAttr);
+    
+    //FirstChild
+    //$('.example-firstChild').firstChild().css('color','red');
+    
+    //LastChild
+    //$('.example-lastChild').lastChild().css('color','red');
+    
+    //Nth Child
+    //$('.example-nthChild').nthChild('3').css('color','red');
+    
+    //Children    
+    //$('.example-children').children().css('color','red');
+    
+    //Parent - Not working in ie7/8
+    //$('.example-find-my-parent').parent().css('color','red');
+    
+    //Next
+    
+    //$('.example-next').next().css('color','red');
+    
+    //Events
+    //$('.example-eventType-but').eventType('click', function(){
+    //	alert('Clicked');  	
+    //});
+    
+    //xml test
+    //NOT WORKING
+  //   xmlRequest('http://api.flickr.com/services/feeds/photos_public.gne?id=71782531@N00&lang=en-us&format=rss_200', function() {
+  //       if (http_request.readyState == 4) {
+  //         if (http_request.status == 200) {
+		// 	var xmldoc = http_request.responseXML;
+		// 	//var items = xmldoc.getElementsByTagName("item");
+		// 	var title = xmldoc.getElementsByTagName("channel").item(0);
+		// 	alert(xmldoc.getElementsByTagName("channel").item(0));
+		// 	console.log(items);
+		// 	//for (var i = 0; i < items.length; i++) {
+		// 	//	items[i];
+				
+		// 	//}
+
+		// 	//var root_node = xmldoc.getElementsByTagName('item')(0);
+		// 	//alert(root_node.firstChild.data);
+		// } else {
+		// 	alert('There was a problem with the request.');
+		// }
+  //       }
+  //   });
+    
+ });  
+
+ //NOT USED
+ 
+// HTMLDocument.prototype.Boob = function (selector) { // Only for HTML
+// 	console.log(this.querySelector(selector));
+//     return this.querySelector(selector);
+// };
+// 
+// HTMLDocument.prototype.css = function (property, value) {
+//     this.style[property] = value;
+//     return this;
+// };
+
+//Boob('.out-class').css('color','red');
+
+</script>
+</body>
+</html>

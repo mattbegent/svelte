@@ -1,0 +1,163 @@
+/* =============================================================================
+   HTML5 display definitions
+   ========================================================================== */
+
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section { display: block; }
+
+/* =============================================================================
+   Base
+   ========================================================================== */
+
+html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+
+body { margin: 0; font-size: 13px; line-height: 1.231; }
+
+body, button, input, select, textarea { font-family: sans-serif; color: #222; }
+
+
+/* =============================================================================
+   Links
+   ========================================================================== */
+
+a { color: #00e; }
+a:visited { color: #551a8b; }
+a:hover { color: #06e; }
+a:focus { outline: thin dotted; }
+
+/* Improve readability when focused and hovered in all browsers: h5bp.com/h */
+a:hover, a:active { outline: 0; }
+
+
+/* =============================================================================
+   Typography
+   ========================================================================== */
+
+h1 {
+	margin-top:0;
+}
+
+section header h1 {margin-bottom:0;}
+
+p:last-child {
+	margin-bottom:0;
+}
+
+/* =============================================================================
+   Lists
+   ========================================================================== */
+
+ul, ol { margin: 1em 0; padding: 0 0 0 40px; }
+
+/* ==|=========================================================================
+   Primary Styles 
+   ========================================================================== */
+
+/*Structure*/
+
+body {
+	background-color: #E5E8E6;
+}
+
+.main {
+	width:80%;
+	margin:1em auto;
+	background-color:#fff;
+	padding:1em;
+    -moz-border-radius: 0.5em;
+  -webkit-border-radius: 0.5em;
+  border-radius:  0.5em;
+}
+
+/* Section styles */
+
+.main section {
+	margin-bottom:1em;
+	padding:1em;
+	background-color: #E8E4D3;
+    -moz-border-radius: 0.5em;
+  -webkit-border-radius: 0.5em;
+  border-radius:  0.5em;
+}
+
+.main section:last-child{
+  margin-bottom:0;
+}
+
+code {
+	display:block;
+	padding:1em;
+	background-color:#8F825F;
+	color:#fff;
+}
+
+code span {
+	display:block;
+}
+
+.example {
+	display:block;
+	padding:1em;
+	color:#8F825F;
+	background-color:#fff;
+}
+
+div.example {
+    margin-top:1em;
+}
+
+.button {
+	background-color:#8F825F;
+	color:#fff;
+	padding:0.5em;
+	display: inline-block;
+	-moz-border-radius: 0.5em;
+	-webkit-border-radius: 0.5em;
+	border-radius:  0.5em;
+	border:none;
+}
+
+.example-eventType-but {
+	margin-top:1em;
+}
+
+.note {
+	font-style:italic;
+}
+
+/*Examples*/
+
+.example-toggle-but {
+	display:block;
+}
+
+header {
+  cursor:pointer;
+}
+
+
+/* Tabs */
+
+.tabs {
+  padding:1em;
+}
+
+.tabs ul {
+  padding:0;
+}
+
+.tabs ul li {
+  list-style:none;
+  display:inline-block;
+  width:50px;
+  text-align:center;
+  background-color:#efefef;
+  cursor: pointer;
+}
+
+.tabs ul li.active {
+  background-color:purple;
+}
+
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
