@@ -1,6 +1,6 @@
 ;(function (window, document, undefined) {
 //TODO: Sort out this keyword inside events in ie7	
-//TODO: NOT function - http://viralpatel.net/blogs/2010/01/javascript-array-remove-element-js-array-delete-element.html
+//TODO: NOT function
 //TODO: Tidy up child/parent selectors a lot
 //TODO: Make speedier	
 //TODO: Child selectors in getSelector function
@@ -596,6 +596,7 @@ var bScript = function(selector){
 };
 
 //DOMLOADED FUNCTION
+//Inspiration from jQuery
 var DomLoaded = {
 	onload: [],
 	isReady: false,
@@ -612,7 +613,6 @@ var DomLoaded = {
 	load: function (fireThis) {
 		this.onload.push(fireThis);
 		if (/complete|interactive/.test(document.readyState)) {
-			// Handle it asynchronously to allow scripts the opportunity to delay ready
 			return setTimeout(DomLoaded.loaded, 1);
 		}
 
@@ -649,18 +649,14 @@ var DomLoaded = {
 			return;
 		}
 		try {
-			// If IE is used, use the trick by Diego Perini
-			// http://javascript.nwbox.com/IEContentLoaded/
+			// Diego Perini trick - http://javascript.nwbox.com/IEContentLoaded/
 			document.documentElement.doScroll("left");
 		} catch (e) {
 			setTimeout(DomLoaded.doScrollCheck, 1);
 			return;
 		}
-
-		// and execute any waiting functions
 		DomLoaded.loaded;
 	}
-
 };
 
 //Expose bScript to the world:-)

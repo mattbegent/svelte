@@ -3,7 +3,7 @@
 	<meta charset="utf-8">
 	<title>bScript - The lightweight js framework</title>
 	<meta name="description" content="bScript - The lightweight js framework">
-	<meta name="description" author="Matt Begent">
+	<meta name="author" content="Matt Begent">
 	<link rel="stylesheet" href="style.css">
 	<!--[if lt IE 9]>
 	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -35,8 +35,9 @@
 		<h1>Getting Started</h1>
 	</header>
 	<div class="inner">
-		<p>Link to:</p>
-		<code>&lt;script src="http://mattbegent.co.uk/bScript/bScript.min.js"&gt;&lt;/script&gt;</code>
+		<p>Download:</p>
+		<p>Download the minified version of bScript and append to your page.</p>
+		<code>&lt;script src="bScript.min.js"&gt;&lt;/script&gt;</code>
 		<p>Go!</p>
 		<code>
 		<span>DomLoaded.load(function() {</span>
@@ -406,8 +407,14 @@
 			<p><strong>Example</strong></p>
 			<code>
 			<span>$('.example-fadein-but').eventType('click', function(){</span>
-	     	<span>alert('Clicked'); </span>	
-	    	<span>});</span>
+    		<span>$(".fade-me-in").fadeIn();</span>
+    		<span>});</span>
+    		<span>$('.example-fadeout-but').eventType('click', function(){</span>
+    		<span>$(".fade-me-out").fadeOut();</span>
+    		<span>});</span>
+    		<span>$('.example-shake-but').eventType('click', function(){</span>
+    		<span>$(".shake-me").shake();</span>	
+    		<span>});</span>
 	    	</code>
 	    	<p><strong>Fade Me In</strong></p>
 	    	<div class="fade-me-in animation-block"></div>
@@ -451,7 +458,7 @@
 </div>  
 
 </body>
-<script src="bScript.js"></script>
+<script src="../bScript.js"></script>
 <script>
 DomLoaded.load(function() {
 
@@ -568,6 +575,7 @@ DomLoaded.load(function() {
 		var tabClass = $(this).getAttr("class").split(" ");	
 		$("div." + tabClass[0]).show().fadeIn();
     });  
+    
  });  
 </script>
 </body>

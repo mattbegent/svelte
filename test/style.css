@@ -34,8 +34,6 @@ h1 {
 	margin-top:0;
 }
 
-section header h1 {margin-bottom:0;}
-
 p:last-child {
 	margin-bottom:0;
 }
@@ -83,6 +81,8 @@ body {
 .main section:last-child{
   margin-bottom:0;
 }
+
+section header h1 {margin-bottom:0;}
 
 code {
 	display:block;
@@ -154,7 +154,6 @@ header {
 .shake-me {
 	background-color:yellow;
 }
-
 
 /* Tabs */
 
