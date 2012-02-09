@@ -1,16 +1,19 @@
-//TODO: Sort out major problems in ie7!!!!
-//NOT function
-//Tidy up child/parent selectors
-//Try using prototype??? May not????
-
-//http://net.tutsplus.com/tutorials/javascript-ajax/create-a-makeshift-javascript-templating-solution/
-//http://mir.aculo.us/2011/03/09/little-helpers-a-tweet-sized-javascript-templating-engine/
-
 ;(function (window, document, undefined) {
+//TODO: Sort out this keyword inside events in ie7	
+//TODO: NOT function - http://viralpatel.net/blogs/2010/01/javascript-array-remove-element-js-array-delete-element.html
+//TODO: Tidy up child/parent selectors a lot
+//TODO: Make speedier	
+//TODO: Child selectors in getSelector function
+//TODO: Public foreach function
+//TODO: Slide animation
+//TODO: Ajax requests
+//TODO: Helper module - e.g. local storage?
 var bScript = function(selector){	
 	"use strict";
 
 	var currentSelector = [];
+
+	//PRIVATE FUNCTIONS
 
 	function getSelector(){
 
@@ -18,45 +21,37 @@ var bScript = function(selector){
 		var Class = /\.((?:[\w\u00c0-\uFFFF\-]|\\.)+)/;
 		var ID = /#((?:[\w\u00c0-\uFFFF\-]|\\.)+)/;
 		var Tag = /^((?:[\w\u00c0-\uFFFF\*\-]|\\.)+)/;
-		var Child = /:(only|nth|last|first)-child(?:\(\s*(even|odd|(?:[+\-]?\d+|(?:[+\-]?\d*)?n\s*(?:[+\-]\s*\d+)?))\s*\))?/; //Not currently used
+		var Child = /:(only|nth|last|first)-child(?:\(\s*(even|odd|(?:[+\-]?\d+|(?:[+\-]?\d*)?n\s*(?:[+\-]\s*\d+)?))\s*\))?/;
 
-		if(typeof selector === "object") { //Need another way to check for this in ie8 and below //selector instanceof Object
-			return currentSelector = selector;
+		if(typeof selector === "object") { //If already an object
+			currentSelector = selector;
+			return;
+		}
+		else if (selector.split(" ",2).length !== 0){ //Query selector
+			modernQuerySelectorAll(selector);
 		}
 		else if (Class.exec(selector)) //By class
 		{
-			if(selector.split(" ",2).length === 0) {
-				return currentSelector = document.getElementsByClassName(selector.replace('.', ''));
-			}
-			else {
-				modernQuerySelectorAll(selector);
-			}
+			currentSelector = document.getElementsByClassName(selector.replace('.', ''));
+			return;
 		} else if (ID.exec(selector)) { //By id
-			if(selector.split(" ",2).length === 0) {
-				return currentSelector = document.getElementById(selector.replace('#', ''));
-			}
-			else {
-				modernQuerySelectorAll(selector);
-			}	
+			currentSelector = document.getElementById(selector.replace('#', ''));
+			return;
 		} else if (Tag.exec(selector)) { //By tag
-			if(selector.split(" ",2).length === 0) {
-				return currentSelector = document.getElementsByTagName(selector);
-			}
-			else {
-				modernQuerySelectorAll(selector);
-			}	
-		} else if (Child.exec(selector)) { //Child selectors - doesn't do anything yet
-			bError("Child selectors are not current supported");
+			currentSelector = document.getElementsByTagName(selector);
+			return;
+		} else if (Child.exec(selector)) { //Child selectors
+			bError("Child selectors are not currently supported");
 		}
 		else {
-			//Need a good error catching function
 			bError(selector + ' not found');
 		}
 	}
 
 	function modernQuerySelectorAll(selector){
 		if(document.querySelectorAll) {
-			return currentSelector = document.querySelectorAll(selector);
+			currentSelector = document.querySelectorAll(selector);
+			return;
 		}
 		else { //ie7 and below
 			oldQuerySelectorAll(selector);
@@ -64,21 +59,22 @@ var bScript = function(selector){
 	}
 
 	//Query selector all browsers ie7 and below:
-	//http://weblogs.asp.net/bleroy/archive/2009/08/31/queryselectorall-on-old-ie-versions-something-that-doesn-t-work.aspx
+	//Source: http://weblogs.asp.net/bleroy/archive/2009/08/31/queryselectorall-on-old-ie-versions-something-that-doesn-t-work.aspx
 	function oldQuerySelectorAll(selector){
 		var style = document.styleSheets[0] || document.createStyleSheet();	
-			style.addRule(selector, "foo:bar");
-			var all = document.all, resultSet = [];
-			for (var i = 0, l = all.length; i < l; i++) {
-				if (all[i].currentStyle.foo === "bar") {
-					resultSet[resultSet.length] = all[i];
-				}
+		style.addRule(selector, "foo:bar");
+		var all = document.all, resultSet = [];
+		for (var i = 0, l = all.length; i < l; i++) {
+			if (all[i].currentStyle.foo === "bar") {
+				resultSet[resultSet.length] = all[i];
 			}
-			style.removeRule(0);
-			return currentSelector = resultSet;
+		}
+		style.removeRule(0);
+		currentSelector = resultSet;
+		return;
 	}
 
-	//The important loop - this loops throught the array of hmtl objects
+	//The important loop - this loops through the html elements
 	function each(functionLoop) {
 		var elements = currentSelector,
 			n = elements.length;
@@ -87,33 +83,29 @@ var bScript = function(selector){
 				var e = elements[i];
 				functionLoop(e);
 			}
-		} //if only one element e.g. single htmlelement
+		} //if only one element e.g. single html element
 		else if(typeof selector === "object") {
 				functionLoop(currentSelector);
 		}
 		else { //Occurs when there is an empty array of elements
-			//return; - Put back in for production
-			bError("Element '" + selector + "' does not exist.");
+			return;
+			//bError("Element '" + selector + "' does not exist.");
 		}
 		return this;
 	}
 
-	//PUBLIC FOREACH FUNCTION HERE :-)
-
-	//Remove sibling whitespaces - next to merge into one function
-
-	function nextSiblingHelper(el) {
-		do {el = el.nextSibling;} while (el && el.nodeType !== 1);
-		return el;
+	//Remove sibling whitespaces - merge into one function
+	function nextSiblingHelper(e) {
+		do {e = e.nextSibling;} while (e && e.nodeType !== 1);
+		return e;
 	}
 
-	function previousSiblingHelper(el) {
-		do {el = el.previousSibling;} while (el && el.nodeType !== 1);
-		return el;
+	function previousSiblingHelper(e) {
+		do {e = e.previousSibling;} while (e && e.nodeType !== 1);
+		return e;
 	}
 
-	//Insert Fallback - mostly for firefox - not ie!
-
+	//Insert Fallback - mostly for old versions of firefox - not ie!
 	function fragment(html) {
 		var element = document.createElement("div");
 		var frag = document.createDocumentFragment();
@@ -125,23 +117,11 @@ var bScript = function(selector){
 	}
 
 	//Error function - make better
-
 	function bError(errorMessage) {
 		throw new Error("Error Bee: " + errorMessage);
 	}
 
-	//Not function -http://viralpatel.net/blogs/2010/01/javascript-array-remove-element-js-array-delete-element.html
-	//Untested - probably won't work
-	function notElement(elementToRemove){
-		each(function (e) {
-        	if(elements[i] == elementToRemove) {
-            	elements.splice(i, 1);
-            	return;
-        	}
-    	});
-	}
-
-	//The public functions
+	//PUBLIC FUNCTIONS
 
 	function setCss(property, value) {
 		each(function (e) {
@@ -175,7 +155,7 @@ var bScript = function(selector){
 		return this;
 	}
 
-	//Classes - Move to classList with fallback when support is greater
+	//Classes - Move to classList with fallback when support is greater?
 	function setAddClass(classToAdd) {
 		each(function (e) {
 			e.className += " " + classToAdd;
@@ -217,8 +197,15 @@ var bScript = function(selector){
 
 	//Manipulation
 	function setText(newHtml) {
+		//Make this function neater
+		var hasInnerText =(document.getElementsByTagName("body")[0].innerText !== undefined) ? true : false;
 		each(function (e) {
-			e.innerHTML = newHtml.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+			if(hasInnerText){
+				e.innerText  = newHtml;
+			}
+			else { //Firefox
+				e.textContent = newHtml;
+			}
 		});
 		return this;
 	}
@@ -254,7 +241,7 @@ var bScript = function(selector){
 		return this;
 	}
 
-	function setGetAttr(attrName) {
+	function getGetAttr(attrName) {
 		var attributeValue = "";	
 		each(function (e) {
 			attributeValue = e.getAttribute(attrName);
@@ -284,7 +271,7 @@ var bScript = function(selector){
 		});
 	}
 
-	//Object properties - Need more??? Position on page??
+	//Object properties - Add more?
 
 	function getHeight() {
 		var height = 0;
@@ -302,15 +289,14 @@ var bScript = function(selector){
 		return width;
 	}
 
-	//Tidy up selectors, check for bugs?
-	//Generally they are a bit rubbish at the moment
+	//Selectors
 
 	function getFirstChild() {
 		var results = [];
 		each(function (e) {
 			var firstChild = e.childNodes[0];
-			if(e.children.length != 0) {
-				while (firstChild.nodeType!=1)
+			if(e.children.length !== 0) {
+				while (firstChild.nodeType !== 1)
 				{
 					firstChild=firstChild.nextSibling;
 				}
@@ -325,14 +311,14 @@ var bScript = function(selector){
 		}
 	}  
 	
-	function getLastChild() {//Not working
+	function getLastChild() {//Not working?
 		var results = [];
 		each(function (e) {
 			var lastChild = e.childNodes[e.childNodes.length - 1];
-			if(e.children.length != 0) {
-				while (lastChild.nodeType!=1)
+			if(e.children.length !== 0) {
+				while (lastChild.nodeType !== 1)
 				{
-					lastChild=lastChild.previousSibling;
+					lastChild = lastChild.previousSibling;
 				}
 				results.push(lastChild);
 			}
@@ -348,12 +334,16 @@ var bScript = function(selector){
 	function getNthChild(childToGet) { //Ie8 problems since using strict
 		var results = [];
 		each(function (e) {
-			var nthChild = e.childNodes[childToGet -1];
-				if (e.childNodes.length != 0) {
-					results.push(nthChild);
+			var nthChild = e.childNodes[childToGet];
+			if (e.childNodes.length !== 0) {
+				while (nthChild.nodeType !== 1)
+				{
+					nthChild = nthChild.nextSibling;
 				}
+				results.push(nthChild);
+			}
 		});
-		if(results.length > 1){
+		if(results.length > 0){
 			return new bScript(results);
 		}
 		else {
@@ -375,7 +365,7 @@ var bScript = function(selector){
 				}      
 			}
 		});
-		if(results.length > 1){
+		if(results.length > 0){
 			return new bScript(results);
 		}
 		else {
@@ -433,19 +423,20 @@ var bScript = function(selector){
 	}
 
 	//Events
-	//READ - http://dean.edwards.name/my/events.js
 	function setEventType(eventType, eventFunction) {
 		each(function (e) {
 			if (e.addEventListener) {	
 				e.addEventListener(eventType, eventFunction, false);
+				return true;
 
 			} else if (e.attachEvent) { //Below ie9 - need to maintain the this keyword - http://particletree.com/files/designersguide/AddEventHistory.pdf
 				e["e"+eventType+eventFunction] = eventFunction;
 				e[eventType+eventFunction] = function() { e["e"+eventType+eventFunction]( window.event ); }
-				e.attachEvent( "on"+eventType, e[eventType+eventFunction] );
+				var r = e.attachEvent( "on"+eventType, e[eventType+eventFunction] );
+				return r;
 			}
 		});
-		return this;
+		//return;
 	}
 
 	function setHover(inFunction, outFunction) {
@@ -460,8 +451,6 @@ var bScript = function(selector){
 	}
 
 	//Simple animate css function
-	//Needs to improve for ie7 - a bit dodge
-	//Do a slide animation using height
 	function setFade(fadeType, time, onComplete){
 		if(!time) {
 			time = 500;
@@ -520,7 +509,6 @@ var bScript = function(selector){
 						onComplete(e);
 					}
 				}
-
 			}
 		});
 		return this;
@@ -534,56 +522,7 @@ var bScript = function(selector){
 		setFade("out", time, onComplete);
 	}
 
-	//NOT CURRENTLY WORKING
-
-	function setSlide(slideType, time, onComplete){
-		if(!time) {
-			time = 500;
-		}
-		var ease = Math.sqrt;
-		var start = (new Date()).getTime();	
-
-		each(function (e) {
-			animate();
-
-			function animate(){
-				var elapsed = (new Date()).getTime()-start;
-				var fraction = elapsed/time;
-				var elementHeight = e.offsetHeight;
-				console.log(elementHeight);
-				var height = 0;
-				if(fraction < 1) {
-						if(slideType === "up"){
-							height = elementHeight - ease(fraction);
-						}
-						//else {
-						//	opacity = 1 - ease(fraction);
-						//}	
-						e.style.height = String(height);
-						setTimeout(animate, Math.min(25, time-elapsed));
-				}
-				else {
-					if(slideType === "up"){
-						e.style.height = "0px";
-					}
-					//else {
-					//	e.style.opacity = "0";
-					//}
-					if(onComplete) {
-						onComplete(e);
-					}
-				}
-
-			}
-		});
-		return this;
-	}
-
-	function setSlideUp(time, onComplete) {
-		setSlide("up", time, onComplete);
-	}
-
-	function doShake(time, onComplete, distance) {
+	function setShake(time, onComplete, distance) {
 		if(!time) {
 			time = 500;
 		}
@@ -617,7 +556,7 @@ var bScript = function(selector){
 		return this;
 	}
 
-	//Only run if new object - is this happening?
+	//Init function
 	getSelector();
 
 	//Public methods
@@ -635,7 +574,7 @@ var bScript = function(selector){
 		remove: setRemove,
 		setAttr: setSetAttr,
 		removeAttr: setRemoveAttr,
-		getAttr: setGetAttr,
+		getAttr: getGetAttr,
 		insert: setInsert,
 		height: getHeight,
 		width: getWidth,
@@ -651,15 +590,12 @@ var bScript = function(selector){
 		click: setClick,
 		fadeIn: setFadeIn,
 		fadeOut: setFadeOut,
-		slideUp: setSlideUp,
-		shake: doShake
+		shake: setShake
 	};
 
 };
 
 //DOMLOADED FUNCTION
-//Check out: http://dustindiaz.com/smallest-domready-ever
-//http://net.tutsplus.com/tutorials/javascript-ajax/from-jquery-to-javascript-a-reference/
 var DomLoaded = {
 	onload: [],
 	isReady: false,
@@ -727,90 +663,10 @@ var DomLoaded = {
 
 };
 
-//LITTLE HELPERS
-
-var helperB = (function(){
-	"use strict";
-    function setStorage(itemName, itemValue){
-		if (typeof window.sessionStorage === 'undefined') {
-			return;
-		} else {
-			try {           
-				sessionStorage.setItem(itemName, itemValue);
-			} catch (e) {
-				 throw new Error(e);
-			}
-		}
-	}
-
-	function getStorage(itemToGet) {
-		if(typeof window.sessionStorage !== 'undefined' && sessionStorage.getItem(itemToGet) !== null) {         
-			return sessionStorage.getItem(itemToGet);
-		}
-		else {
-			return false;
-		}
-	} 
-
-	function setDelay(functionToDelay, delayTime){
-		if(!delayTime){
-			delayTime = 5000;
-		}
-		setTimeout(function(){
-			functionToDelay;
-		},delayTime);
-	}
-
-    return {
-        setStorage: setStorage,
-        getStorage: getStorage,
-        delay: setDelay
-    };
-
-}());
-
 //Expose bScript to the world:-)
 window.bScript = window.$ = bScript;
 
 //Expose DomLoaded to the world:-)
 window.DomLoaded = DomLoaded;
 
-//Expose helperB to the world:-)
-window.helperB = helperB;
-
-}(window, document, undefined));
-
-//Currently non core helpers
-//TODO: Put these functions into a helper.
-//xml - works on server, needs to be turned into a nice function
-function xmlRequest(url, xmlFunction) {
-	"use strict";
-	http_request = false;
-
-	if (window.XMLHttpRequest) { // Mozilla, Safari,...
-		http_request = new XMLHttpRequest();
-		if (http_request.overrideMimeType) {
-			http_request.overrideMimeType('text/xml');
-		}
-	} else if (window.ActiveXObject) { // IE
-		try {
-			http_request = new ActiveXObject("Msxml2.XMLHTTP");
-		} catch (e) {
-			try {
-				http_request = new ActiveXObject("Microsoft.XMLHTTP");
-			} catch (e) {}
-		}
-	}
-
-	if (!http_request) {
-		alert('Giving up :( Cannot create an XMLHTTP instance');
-		return false;
-	}
-	http_request.onreadystatechange = xmlFunction;
-	http_request.open('GET', url, true);
-	http_request.send(null);
-	return http_request;
-}
-
-//Storage
-     
+}(window, document, undefined));   
