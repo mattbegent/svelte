@@ -17,44 +17,26 @@ var bScript = function(selector){
 
 	function getSelector(){
 
-		//Match expressions
-		var Class = /\.((?:[\w\u00c0-\uFFFF\-]|\\.)+)/;
-		var ID = /#((?:[\w\u00c0-\uFFFF\-]|\\.)+)/;
-		var Tag = /^((?:[\w\u00c0-\uFFFF\*\-]|\\.)+)/;
-		var Child = /:(only|nth|last|first)-child(?:\(\s*(even|odd|(?:[+\-]?\d+|(?:[+\-]?\d*)?n\s*(?:[+\-]\s*\d+)?))\s*\))?/;
-
 		if(typeof selector === "object") { //If already an object
-			currentSelector = selector;
-			return;
+			return currentSelector = selector;
 		}
-		else if (selector.split(" ",2).length !== 0){ //Query selector
+		else { //Query selector
 			modernQuerySelectorAll(selector);
-		}
-		else if (Class.exec(selector)) //By class
-		{
-			currentSelector = document.getElementsByClassName(selector.replace('.', ''));
-			return;
-		} else if (ID.exec(selector)) { //By id
-			currentSelector = document.getElementById(selector.replace('#', ''));
-			return;
-		} else if (Tag.exec(selector)) { //By tag
-			currentSelector = document.getElementsByTagName(selector);
-			return;
-		} else if (Child.exec(selector)) { //Child selectors
-			bError("Child selectors are not currently supported");
-		}
-		else {
-			bError(selector + ' not found');
 		}
 	}
 
 	function modernQuerySelectorAll(selector){
-		if(document.querySelectorAll) {
-			currentSelector = document.querySelectorAll(selector);
-			return;
+		try {
+			if(document.querySelectorAll) {
+				return currentSelector = document.querySelectorAll(selector);
+			}
+			else { //ie7 and below
+				oldQuerySelectorAll(selector);
+			}
 		}
-		else { //ie7 and below
-			oldQuerySelectorAll(selector);
+		catch(e){
+			//bError(selector + ' not found');
+			return;	
 		}
 	}
 
@@ -70,8 +52,7 @@ var bScript = function(selector){
 			}
 		}
 		style.removeRule(0);
-		currentSelector = resultSet;
-		return;
+		return currentSelector = resultSet;
 	}
 
 	//The important loop - this loops through the html elements
