@@ -11,7 +11,7 @@
 var bScript = function(selector){	
 	"use strict";
 
-	var currentSelector = [];
+	var currentSelector = "";
 
 	//PRIVATE FUNCTIONS
 
@@ -28,7 +28,7 @@ var bScript = function(selector){
 	function modernQuerySelectorAll(selector){
 		try {
 			if(document.querySelectorAll) {
-				return currentSelector = document.querySelectorAll(selector);
+				return currentSelector = document.querySelectorAll.call(document, selector);
 			}
 			else { //ie7 and below
 				oldQuerySelectorAll(selector);
@@ -95,6 +95,12 @@ var bScript = function(selector){
 			frag.appendChild(element.firstChild);
 		}	
 		return frag;	
+	}
+
+	//Check if funciton - not currenly used
+	function isFunction(functionToCheck) {
+	 	var getType = {};
+	 	return functionToCheck && getType.toString.call(functionToCheck) == '[object Function]';
 	}
 
 	//Error function - make better
@@ -486,7 +492,7 @@ var bScript = function(selector){
 							e.style.filter = "alpha(opacity=0)";
 						}
 					}	
-					if(onComplete) {
+					if(onComplete && typeof onComplete === "function") {
 						onComplete(e);
 					}
 				}
@@ -528,7 +534,7 @@ var bScript = function(selector){
 				} 
 				else {
 					e.style.cssText = orginalStyle;
-					if(onComplete) {
+					if(onComplete && typeof onComplete === "function") {
 						onComplete(e);
 					}
 				}
