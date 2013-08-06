@@ -17,7 +17,7 @@ Getting Started
 
 2) Put all of your functions inside the DomLoaded function:
 
-	$.fn.ready(function() {
+	$(document).ready(function() {
 	//Insert all super cool functions here
 	});
 
