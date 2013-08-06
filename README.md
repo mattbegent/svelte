@@ -6,7 +6,7 @@ What is bScript?
 
 It is a lightweight JavaScript framework (3.2KB minified) intended for use on small projects where a large framework is not necessary.
 
-It uses mordern javascript (querySelectorAll, forEach, classList) to help make it as lightweight as possible and therefore only works on the latest version of mordern browsers E.g. Chrome, Firefox, Opera, ie9+.
+It uses mordern javascript (querySelectorAll, forEach, classList) to help make it as lightweight as possible and therefore only works on the latest version of mordern browsers E.g. Chrome, Firefox, Opera, ie10+.
 
 Getting Started
 ---------------------
@@ -18,7 +18,7 @@ Getting Started
 2) Put all of your functions inside the DomLoaded function:
 
 	$(document).ready(function() {
-	//Insert all super cool functions here
+	   //Insert all super cool functions here
 	});
 
 How To
