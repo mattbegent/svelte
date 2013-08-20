@@ -32,15 +32,15 @@ var bScript = function(selector) {
 //The good stuff
 bScript.prototype = { 
 
-    ready: function(readyFunctions){
+    ready: function(callback){
         if(document.addEventListener){
-            document.addEventListener('DOMContentLoaded', readyFunctions);
+            document.addEventListener('DOMContentLoaded', callback);
         }
     },
 
-    each: function(functionToLoop) {  
+    each: function(callback) {  
         [].forEach.call(this.currentSelectorArray, function(el) {
-            functionToLoop(el);
+            callback(el);
         });
         return this; 
     },
@@ -98,21 +98,21 @@ bScript.prototype = {
     //  return this; 
     //},
 
-    on: function(eventType, eventFunction) {  
+    on: function(name, callback) {  
         return this.each(function(el) {
-            el.addEventListener(eventType, eventFunction, false);
+            el.addEventListener(name, callback, false);
         });
     },
 
-    off: function(eventType, eventFunction) {  
+    off: function(name, callback) {  
         return this.each(function(el) {
-            el.removeEventListener(eventType, eventFunction, false);
+            el.removeEventListener(name, callback, false);
         });
     },
 
-    trigger: function(eventName) {
+    trigger: function(name) {
         return this.each(function(el) {
-            var triggerEvent = new Event(eventName);
+            var triggerEvent = new Event(name);
             el.dispatchEvent(triggerEvent);
         });
     },
@@ -137,7 +137,7 @@ bScript.prototype = {
                 }
             }
         };
-        
+
     },
 
     next: function() {  

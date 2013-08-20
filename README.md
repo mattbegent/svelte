@@ -15,7 +15,7 @@ Getting Started
 
 	<script src="bScript.min.js"></script>
 
-2) Put all of your functions inside the DomLoaded function:
+2) Put all of your functions inside the ready function:
 
 	$(document).ready(function() {
 	   //Insert all super cool functions here
@@ -27,6 +27,34 @@ How To
 Examples of every function can be found on the test page. If you have used other JavaScript frameworks most functions will be familiar to you. For example, to add some css to a selector, you would write:
 
 	$('.example-css').css("color","red");
+
+
+API
+---------------------
+
+* ready(callback)
+* each(callback)
+* css(property, value)
+* hide()
+* show()
+* toggle()
+* addClass(classToAdd)
+* removeClass(classToRemove)
+* toggleClass(classToToggle)
+* on(name, callback)
+* off(name, callback)
+* trigger(eventName)
+* getJSON(options, callback, error)
+* next()
+* first()
+* last()
+* append(position, html)
+* text(textToAdd)
+* html(htmlToAdd)
+* remove()
+* setAttr(name, value)
+* getAttr(name)
+* removeAttr(name)
 
 Get Involved
 ---------------------
