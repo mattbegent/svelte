@@ -1,4 +1,4 @@
-;(function (window, document, undefined) {
+;(function (window, document) {
 
 "use strict"; 
 
@@ -117,6 +117,29 @@ bScript.prototype = {
         });
     },
 
+    getJSON: function(options, callback, error) {
+
+        var httpRequest = new XMLHttpRequest();
+        options.url = options.url || location.href;
+        options.data = options.data || null;
+        callback = callback || function() {};
+        error = callback || function() {};
+
+        httpRequest.open('GET', options.url);
+        httpRequest.send(options.data);
+
+        httpRequest.onreadystatechange = function() {
+            if (httpRequest.readyState === 4) {
+                if (httpRequest.status === 200) {
+                    callback(httpRequest.responseText);
+                } else {
+                    error(httpRequest.statusText);
+                }
+            }
+        };
+        
+    },
+
     next: function() {  
         return this.each(function(el) {
             this.currentSelectorArray.push(el.nextElementSibling);
@@ -191,4 +214,4 @@ bScript.fn = bScript.prototype;
 //Expose bScript to the world:-)
 window.bScript = window.$ = bScript;
 
-}(window, document, undefined));   
+}(window, document));   
