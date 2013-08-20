@@ -39,7 +39,7 @@ bScript.prototype = {
     },
 
     each: function(functionToLoop) {  
-        [].forEach.call( this.currentSelectorArray, function(el) {
+        [].forEach.call(this.currentSelectorArray, function(el) {
             functionToLoop(el);
         });
         return this; 
@@ -107,6 +107,13 @@ bScript.prototype = {
     off: function(eventType, eventFunction) {  
         return this.each(function(el) {
             el.removeEventListener(eventType, eventFunction, false);
+        });
+    },
+
+    trigger: function(eventName) {
+        return this.each(function(el) {
+            var triggerEvent = new Event(eventName);
+            el.dispatchEvent(triggerEvent);
         });
     },
 
