@@ -92,11 +92,10 @@ bScript.prototype = {
         });
     },
 
-    //hasClass: function(hasClass) { 
-        //Only need to check one node?
-    //  this.currentSelector[0].classList.contains(hasClass);
-    //  return this; 
-    //},
+    hasClass: function(hasClass) { 
+        //Only need to check first?
+        return this.currentSelectorArray[0].classList.contains(hasClass);
+    },
 
     on: function(name, callback) {  
         return this.each(function(el) {
