@@ -28,7 +28,6 @@ Examples of every function can be found on the test page. If you have used other
 
 	$('.example-css').css("color","red");
 
-
 API
 ---------------------
 
@@ -55,6 +54,9 @@ API
 * setAttr(name, value)
 * getAttr(name)
 * removeAttr(name)
+* length()
+* height()
+* width()
 
 Get Involved
 ---------------------

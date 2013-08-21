@@ -208,6 +208,14 @@ bScript.prototype = {
 
     length: function() {  
         return this.currentSelectorArray.length;
+    },
+
+    height: function(value) {  
+        return this.currentSelectorArray[0].offsetHeight;
+    },
+
+    width: function(value) {  
+        return this.currentSelectorArray[0].offsetWidth;
     }
     
 };
