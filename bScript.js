@@ -204,6 +204,10 @@ bScript.prototype = {
         return this.each(function(el) {
             el.removeAttribute(attributeName);
         });
+    },
+
+    length: function() {  
+        return this.currentSelectorArray.length;
     }
     
 };
