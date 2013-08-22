@@ -40,6 +40,7 @@ API
 * addClass(classToAdd)
 * removeClass(classToRemove)
 * toggleClass(classToToggle)
+* hasClass(hasClass)
 * on(name, callback)
 * off(name, callback)
 * trigger(eventName)

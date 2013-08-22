@@ -33,9 +33,7 @@ var bScript = function(selector) {
 bScript.prototype = { 
 
     ready: function(callback){
-        if(document.addEventListener){
-            document.addEventListener('DOMContentLoaded', callback);
-        }
+        document.addEventListener('DOMContentLoaded', callback);
     },
 
     each: function(callback) {  
@@ -209,11 +207,11 @@ bScript.prototype = {
         return this.currentSelectorArray.length;
     },
 
-    height: function(value) {  
+    height: function() {  
         return this.currentSelectorArray[0].offsetHeight;
     },
 
-    width: function(value) {  
+    width: function() {  
         return this.currentSelectorArray[0].offsetWidth;
     }
     
