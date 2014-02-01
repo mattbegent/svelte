@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>bScript Tests</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+        <header role="banner">
+            <h1>bScript</h1>
+        </header>
+        
+        <main class="main" role="main">
+
+            <h2>css</h2>
+
+            <p class="test-css">Should be red.</p>
+
+            <h2>hide</h2>
+
+            <p class="test-hide">Should be hidden.</p>
+
+            <h2>show</h2>
+
+            <p class="test-show">Should be shown.</p>
+
+            <h2>toggle</h2>
+
+            <p class="test-toggle-trigger">Trigger</p>
+            <p class="test-toggle">Should toggle on click.</p>
+
+            <h2>addClass</h2>
+            <p class="test-addclass">I should have a class of another-class</p>
+
+            <h2>removeClass</h2>
+            <p class="test-removeclass">I shouldn't have a class of another-class</p>
+
+            <h2>toggleClass</h2>
+
+            <p class="test-toggleclass-trigger">Trigger</p>
+            <p class="test-toggleclass">another-class should be toggled on click</p>
+
+            <h2>hasClass</h2>
+
+            <p class="test-hasclass test-i-have-this-class">I have the class "test-i-have-this-class" - <span class="test-hasclass-result"></span></p>
+
+<!--             <h2>on</h2>
+
+            <h2>off</h2>
+
+            <h2>trigger</h2> -->
+
+            <h2>getJSON</h2>
+
+            <p class="test-json"></p>
+
+        </main>
+
+        <footer role="contentinfo">
+            <p><small>&copy; bScript</small></p>
+        </footer>
+
+    </div>
+
+    <script src="../bscript.js"></script>
+    <script>
+    $.fn.ready(function() {
+
+        $(".test-css").css("color","red");
+
+        $(".test-hide").hide();
+
+        $(".test-show").show();
+
+        $(".test-toggle-trigger").on("click", function(e) {
+            console.log(this);
+            e.preventDefault();
+            $(".test-toggle").toggle();
+        });
+
+        $(".test-addclass").addClass("another-class");
+
+        $(".test-removeclass").removeClass("another-class");
+
+        $(".test-toggleclass-trigger").on("click", function(e) {
+            e.preventDefault();
+            $(".test-toggleclass").toggleClass("another-class");
+        });
+
+        var hasClassTest = $(".test-hasclass").hasClass("test-i-have-this-class");
+        $(".test-hasclass-result").text(hasClassTest);
+
+        // GetJSON
+        $.fn.getJSON({
+                url: "data/test.json",
+                success: function(data) {
+                    $(".test-json").text(data);
+                },
+                error: function() {
+                    $(".test-json").text("An error has occurred");
+                }
+            }
+
+        );
+
+    });
+    </script>
+
+</body>
+</html>

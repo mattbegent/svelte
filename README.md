@@ -51,6 +51,8 @@ API
 * append(position, html)
 * text(textToAdd)
 * html(htmlToAdd)
+* empty()
+* clone()
 * remove()
 * setAttr(name, value)
 * getAttr(name)

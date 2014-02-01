@@ -1,6 +1,6 @@
 ;(function (window, document) {
 
-"use strict"; 
+'use strict'; 
 
 //Main selector
 var bScript = function(selector) {
@@ -16,14 +16,14 @@ var bScript = function(selector) {
     }
 
     //Selector array
-    this.currentSelectorArray = [];
+    this.currentSelector = [];
 
     //Check if object
-    if(typeof selector  === "object") {
-        this.currentSelectorArray.push(selector);
+    if(typeof selector  === 'object') {
+        this.currentSelector.push(selector);
     }
     else { // Turn nodelist into an array
-        this.currentSelectorArray = Array.prototype.slice.call(document.querySelectorAll(selector));
+        this.currentSelector = Array.prototype.slice.call(document.querySelectorAll(selector));
     }
     
     return this;
@@ -37,7 +37,7 @@ bScript.prototype = {
     },
 
     each: function(callback) {  
-        [].forEach.call(this.currentSelectorArray, function(el) {
+        [].forEach.call(this.currentSelector, function(el) {
             callback(el);
         });
         return this; 
@@ -63,11 +63,11 @@ bScript.prototype = {
     
     toggle: function() {  
         return this.each(function(el) {
-            if(el.style.display === "" || el.style.display === "block") {
-                el.style.display = "none";
+            if(el.style.display === '' || el.style.display === 'block') {
+                el.style.display = 'none';
             }
             else {
-                el.style.display = "block";
+                el.style.display = 'block';
             }
         });
     },
@@ -92,7 +92,7 @@ bScript.prototype = {
 
     hasClass: function(hasClass) { 
         //Only need to check first?
-        return this.currentSelectorArray[0].classList.contains(hasClass);
+        return this.currentSelector[0].classList.contains(hasClass);
     },
 
     on: function(name, callback) {  
@@ -114,13 +114,13 @@ bScript.prototype = {
         });
     },
 
-    getJSON: function(options, callback, error) {
+    getJSON: function(options) {
 
         var httpRequest = new XMLHttpRequest();
         options.url = options.url || location.href;
         options.data = options.data || null;
-        callback = callback || function() {};
-        error = callback || function() {};
+        options.success = options.success || function() {};
+        options.error = options.error || function() {};
 
         httpRequest.open('GET', options.url);
         httpRequest.send(options.data);
@@ -128,9 +128,9 @@ bScript.prototype = {
         httpRequest.onreadystatechange = function() {
             if (httpRequest.readyState === 4) {
                 if (httpRequest.status === 200) {
-                    callback(httpRequest.responseText);
+                    options.success(httpRequest.responseText);
                 } else {
-                    error(httpRequest.statusText);
+                    options.error(httpRequest.statusText);
                 }
             }
         };
@@ -139,18 +139,18 @@ bScript.prototype = {
 
     next: function() {  
         return this.each(function(el) {
-            this.currentSelectorArray.push(el.nextElementSibling);
+            this.currentSelector.push(el.nextElementSibling);
         });
     },
 
     first: function() {         
-        this.currentSelectorArray = this.currentSelectorArray.slice(0,1);
+        this.currentSelector = this.currentSelector.slice(0,1);
         return this;
     },
 
     last: function() {  
-        var arrayLength = this.currentSelectorArray.length;
-        this.currentSelectorArray = this.currentSelectorArray.slice(arrayLength-1,arrayLength);
+        var arrayLength = this.currentSelector.length;
+        this.currentSelector = this.currentSelector.slice(arrayLength-1,arrayLength);
         return this;
     },
 
@@ -169,13 +169,25 @@ bScript.prototype = {
 
     text: function(textToAdd) {  
         return this.each(function(el) {
-            el.innerText = textToAdd;
+            el.textContent = textToAdd;
         });
     },
 
     html: function(htmlToAdd) {  
         return this.each(function(el) {
             el.innerHTML = htmlToAdd;
+        });
+    },
+
+    empty: function() {  
+        return this.each(function(el) {
+            el.innerHTML = '';
+        });
+    },
+
+    clone: function() {  
+        return this.each(function(el) {
+            el.clodeNode();
         });
     },
 
@@ -204,15 +216,19 @@ bScript.prototype = {
     },
 
     length: function() {  
-        return this.currentSelectorArray.length;
+        return this.currentSelector.length;
     },
 
     height: function() {  
-        return this.currentSelectorArray[0].offsetHeight;
+        return this.currentSelector[0].offsetHeight;
     },
 
     width: function() {  
-        return this.currentSelectorArray[0].offsetWidth;
+        return this.currentSelector[0].offsetWidth;
+    },
+
+    native: function() {  
+        return this.currentSelector[0];
     }
     
 };
