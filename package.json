@@ -1,0 +1,13 @@
+{
+  "name": "bScript",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mattbegent/bscript.git"
+  },
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-jsdoc": "*",
+    "grunt-contrib-uglify": "*"
+  }
+}

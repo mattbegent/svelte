@@ -50,15 +50,33 @@
 
             <p class="test-hasclass test-i-have-this-class">I have the class "test-i-have-this-class" - <span class="test-hasclass-result"></span></p>
 
+            <h2>getAttr</h2>
+
+            <p data-attr="Testing" class="test-attr">Testing attributes</p>
+
 <!--             <h2>on</h2>
 
             <h2>off</h2>
 
             <h2>trigger</h2> -->
 
-            <h2>getJSON</h2>
+            <h2>ajax</h2>
 
             <p class="test-json"></p>
+
+            <input id="value" value="Test" />
+
+            <select id="select">
+                <option value="selectedvalue">Selected</option>
+            </select>
+
+            <div class="visible">
+                Visible
+            </div>
+
+            <div class="not-visible" style="display: none;">
+                Not Visible
+            </div>
 
         </main>
 
@@ -70,18 +88,37 @@
 
     <script src="../bscript.js"></script>
     <script>
-    $.fn.ready(function() {
+    $(document).ready(function() {
 
-        $(".test-css").css("color","red");
+
+        // $.fn.hide = function() {
+        //     return "yo";
+        // }
+        // console.log($(".test-hide").hide());
+
+        console.log($('.test-css').first());
+
+        console.log($(".visible").visible());
+        console.log($(".not-visible").visible());
+
+
+
+        $(".test-css").css("color","red").css("border","1px solid red");
 
         $(".test-hide").hide();
 
         $(".test-show").show();
 
-        $(".test-toggle-trigger").on("click", function(e) {
-            console.log(this);
+        $("p").on("click", function(e) {
             e.preventDefault();
-            $(".test-toggle").toggle();
+            console.log(e);
+            console.log(e.currentTarget);
+            console.log($(e.currentTarget))
+            if($(e.currentTarget).matches(".test-toggle-trigger")) {
+                $(".test-toggle").toggle();
+            } else {
+                alert("Nope!");
+            }
         });
 
         $(".test-addclass").addClass("another-class");
@@ -96,18 +133,30 @@
         var hasClassTest = $(".test-hasclass").hasClass("test-i-have-this-class");
         $(".test-hasclass-result").text(hasClassTest);
 
-        // GetJSON
-        $.fn.getJSON({
-                url: "data/test.json",
-                success: function(data) {
-                    $(".test-json").text(data);
-                },
-                error: function() {
-                    $(".test-json").text("An error has occurred");
-                }
-            }
+        console.log($(".test-show").matches("div"));
 
-        );
+        console.log($("#value").val());
+        console.log($("#select").val());
+        console.log($("body").find('.test-show'));
+
+        console.log($(".test-attr").getAttr('data-attr'));
+
+        // Ajax
+        $.fn.ajax({
+            url: "data/test.json",
+            type: "GET",
+            success: function(data) {
+                $(".test-json").text(data);
+            },
+            error: function() {
+                $(".test-json").text("An error has occurred");
+            }
+        });
+
+
+
+
+
 
     });
     </script>
