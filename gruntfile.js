@@ -8,7 +8,7 @@ module.exports = function(grunt) {
 
       jsdoc : {
         dist : {
-            src: ['bscript.js'], 
+            src: ['svelte.js'], 
             options: {
                 destination: 'docs'
             }
@@ -19,10 +19,10 @@ module.exports = function(grunt) {
         dist : {
             options: {
                 sourceMap: true,
-                banner: '/*** bScript - 1.0.0 ***/'
+                banner: '/*** svelte - 1.0.0 ***/'
             },
             files: {
-                'bScript.min.js': ['bScript.js'],
+                'svelte.min.js': ['svelte.js'],
             }
         }
       }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>bScript Tests</title>
+    <title>svelte Tests</title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
@@ -13,7 +13,7 @@
     <div class="wrapper">
 
         <header role="banner">
-            <h1>bScript</h1>
+            <h1>svelte</h1>
         </header>
         
         <main class="main" role="main">
@@ -80,15 +80,15 @@
 
         </main>
 
-        <footer role="contentinfo">
-            <p><small>&copy; bScript</small></p>
+        <footer role="contentinfo" class="cool">
+            <p><small>&copy; svelte</small></p>
         </footer>
 
     </div>
 
-    <script src="../bscript.js"></script>
+    <script src="../svelte.js"></script>
     <script>
-    $(document).ready(function() {
+    domready(function() {
 
 
         // $.fn.hide = function() {
@@ -100,6 +100,8 @@
 
         console.log($(".visible").visible());
         console.log($(".not-visible").visible());
+
+
 
 
 
@@ -141,6 +143,8 @@
 
         console.log($(".test-attr").getAttr('data-attr'));
 
+        console.log($('.test-toggle-trigger').selector[0].getBoundingClientRect().left);
+
         // Ajax
         $.fn.ajax({
             url: "data/test.json",
@@ -152,6 +156,20 @@
                 $(".test-json").text("An error has occurred");
             }
         });
+
+        // $.fn.cool = function() {
+        //     return this.each(function(el) {
+        //         el.textContent = 'Cool';
+        //     });
+        // }
+
+        // console.log($.fn);
+
+        // $('.cool').cool();
+
+        //$('.test-toggle-trigger').trigger('click');
+
+        
 
 
 

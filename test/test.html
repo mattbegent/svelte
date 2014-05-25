@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>bScript Test</title>
+  <title>svelte Test</title>
   <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.14.0.css">
 </head>
 <body>
@@ -10,7 +10,7 @@
   <div id="qunit-fixture"></div>
   <div class="test-selector"></div>
   <div class="test-class"></div>
-  <script src="../bscript.js"></script>
+  <script src="../svelte.js"></script>
   <script src="http://code.jquery.com/qunit/qunit-1.14.0.js"></script>
   <script>
 
@@ -25,7 +25,7 @@
         ok( "insertAdjacentHTML" in document.createElement("_"), "insertAdjacentHTML" );
         ok( Element.prototype.matches || Element.prototype.matchesSelector || Element.prototype.msMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.webkitMatchesSelector, "matchesSelector" );
         ok( typeof Object.create === 'function', "object create");
-        ok( $.fn, "bScript functions are available" );
+        ok( $.fn, "svelte functions are available" );
         ok( $, "$" );
     });
 

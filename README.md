@@ -1,38 +1,38 @@
-bScript - The lightweight JavaScript framework
+svelte - The lightweight modern JavaScript framework
 ======================================
 
-What is bScript?
+What is svelte?
 ---------------------
 
-It is a lightweight JavaScript framework (3.55KB minified) intended for use on small projects where a large framework is not necessary.
+It is a lightweight modern JavaScript framework (4.33KB minified) intended for use on projects where legacy browser support is not necessary.
 
-It uses mordern javascript (querySelectorAll, forEach, classList, matchesSelector) to help make it as lightweight as possible and therefore only works on the latest version of mordern browsers E.g. Chrome, Firefox, Opera, ie10+.
+It uses mordern javascript (querySelectorAll, forEach, classList, matchesSelector) to help make it as lightweight as possible and therefore only works on the latest version of mordern browsers E.g. Chrome, Firefox, Opera, IE9+.
 
 Getting Started
 ---------------------
 
-1) Simply download the minified version of bScript and reference it in your page.
+1) Simply download the minified version of svelte and reference it in your page.
 
-	<script src="bScript.min.js"></script>
+	<script src="svelte.min.js"></script>
 
-2) Put all of your functions inside the ready function:
+2) Put all of your functions inside the domready function:
 
-	$(document).ready(function() {
+	domready(function() {
 	   //Insert all super cool functions here
 	});
 
 How To
 ---------------------
 
-Examples of every function can be found on the test page. If you have used other JavaScript frameworks most functions will be familiar to you. For example, to add some CSS to a selector, you would write:
+Examples of every function can be found on the test page. If you have used other JavaScript frameworks most functions will be familiar to you. For example, to set the text of an element, you would write:
 
-	$('.example-css').css("color","red");
+	$('.hello').text("Hello svelte");
 
 API
 ---------------------
 
 * $(selector, context)
-* ready(callback)
+* domready(callback)
 * each(callback)
 * css(property, value)
 * hide()
@@ -44,8 +44,8 @@ API
 * hasClass(className)
 * on(name, callback)
 * off(name, callback)
-* trigger(eventName)
-* ajax({ url: url, data: data, type: type, success: sucess, error: error }})
+* trigger(eventName, detail)
+* ajax({ url: url, data: data, type: type, cache: true, success: sucess, error: error }})
 * next()
 * first()
 * last()
@@ -61,7 +61,21 @@ API
 * length()
 * height()
 * width()
+* position()
 * matches()
+
+Custom functions
+---------------------
+
+You can easily add a custom function to svelte by adding to $.fn.
+
+	$.fn.cool = function() {
+		return this.each(function(el) {
+	    	el.textContent = 'Cool';
+	    });
+	}
+	
+	$('.says-cool').cool();
 
 Roadmap
 ---------------------
@@ -73,4 +87,4 @@ Roadmap
 Get Involved
 ---------------------
 
-Feel free to help make bScript better :-).
+Feel free to help make svelte better :-).

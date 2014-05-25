@@ -1,9 +1,9 @@
 {
-  "name": "bScript",
+  "name": "svelte",
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mattbegent/bscript.git"
+    "url": "https://github.com/mattbegent/svelte.git"
   },
   "devDependencies": {
     "grunt": "*",

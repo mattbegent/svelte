@@ -1,34 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>JSDoc: Source: bscript.js</title>
-    
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
-    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
-</head>
-
-<body>
-
-<div id="main">
-    
-    <h1 class="page-title">Source: bscript.js</h1>
-    
-    
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source"><code>/*jshint newcap: false */
-
 /**
-* @fileOverview bScript - the lightweight JavaScript framework 
+* @fileOverview svelte - the lightweight modern JavaScript framework 
 * @author Matt Begent
 * @version 1.0.0
 */
@@ -37,25 +8,25 @@
 
 'use strict'; 
 
-var bScript = {
+var svelte = {
 
     /**
     * The dom ready function
-    * @memberOf bScript
+    * @memberOf svelte
     * @param {function} callback Run functions when the dom is loaded
-    * @returns bScript
+    * @returns svelte
     * @example
-    * $(document).ready(function() { });
+    * domready(function() { });
     */
-    ready: function(callback){
+    domready: function(callback){
         document.addEventListener('DOMContentLoaded', callback);
     },
 
     /**
     * Each loop
-    * @memberOf bScript
+    * @memberOf svelte
     * @param {function} callback Function to be run on each selector
-    * @returns bScript
+    * @returns svelte
     * @example
     * $('.each').each(function() { });
     */
@@ -68,9 +39,9 @@ var bScript = {
 
     /**
     * Find a new selector within a parent selector
-    * @memberOf bScript
+    * @memberOf svelte
     * @param {string} selector Find a new selector within a parent selector
-    * @returns bScript
+    * @returns svelte
     * @example
     * $('.parent').find('.child');
     */
@@ -81,23 +52,27 @@ var bScript = {
 
     /**
     * Set the CSS for an element
-    * @memberOf bScript
+    * @memberOf svelte
     * @param {string} property Property of element to set
     * @param {string} value Value of property to set
-    * @returns bScript
+    * @returns svelte
     * @example
     * $('.color').css('color', 'red');
     */
     css: function(property, value) {  
-        return this.each(function(el) {
-            el.style[property] = value;
-        });
+        if(value) {
+            return this.each(function(el) {
+                el.style[property] = value;
+            });
+        } else {
+            return getComputedStyle(this.selector[0])[property];
+        }
     },
 
     /**
     * Sets selector to display none
-    * @memberOf bScript
-    * @returns bScript
+    * @memberOf svelte
+    * @returns svelte
     * @example
     * $('.hide').hide();
     */
@@ -109,8 +84,8 @@ var bScript = {
 
     /**
     * Sets selector to display block
-    * @memberOf bScript
-    * @returns bScript
+    * @memberOf svelte
+    * @returns svelte
     * @example
     * $('.show').show();
     */
@@ -122,7 +97,7 @@ var bScript = {
 
     /**
     * Checks whether the selector is visible
-    * @memberOf bScript
+    * @memberOf svelte
     * @returns Boolean
     * @example
     * $('.visible').visible();
@@ -133,7 +108,7 @@ var bScript = {
     
     /**
     * Toggles the display property of the selector
-    * @memberOf bScript
+    * @memberOf svelte
     * @returns Boolean
     * @example
     * $('.visible').visible();
@@ -151,64 +126,91 @@ var bScript = {
 
     /**
     * Adds a class to the selector
-    * @memberOf bScript
+    * @memberOf svelte
     * @param {string} className Name of class to add
-    * @returns bScript
+    * @returns svelte
     * @example
     * $('.class').addClass('another-class');
     */
     addClass: function(className) {  
         return this.each(function(el) {
-            el.classList.add(className);
+            if (el.classList) {
+                el.classList.add(className); 
+            } else { // IE9
+               el.className += ' ' + className; 
+            }
         }); 
     },
 
     /**
     * Removes a class from the selector
-    * @memberOf bScript
+    * @memberOf svelte
     * @param {string} className Name of class to remove
-    * @returns bScript
+    * @returns svelte
     * @example
     * $('.class remove-class').removeClass('remove-class');
     */
     removeClass: function(className) {  
         return this.each(function(el) {
-            el.classList.remove(className);
+            if (el.classList) {
+                el.classList.remove(className);
+            } else { // IE9
+                el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+            }
         });
     },
 
     /**
     * Toggles a class from the selector
-    * @memberOf bScript
+    * @memberOf svelte
     * @param {string} className Name of class to toggle
-    * @returns bScript
+    * @returns svelte
     * @example
     * $('.class toggle-class').toggleClass('toggle-class');
     */
     toggleClass: function(className) {  
         return this.each(function(el) {
-            el.classList.toggle(className);
+            if(el.classList) {
+                el.classList.toggle(className);
+            } else { // IE9
+
+                var classes = el.className.split(' ');
+                var existingIndex = classes.indexOf(className);
+
+                if (existingIndex >= 0) {
+                    classes.splice(existingIndex, 1);
+                } else {
+                    classes.push(className);
+                }  
+
+                el.className = classes.join(' ');
+
+            }
         });
     },
 
     /**
     * Checks whether the selector has a specific class
-    * @memberOf bScript
+    * @memberOf svelte
     * @returns Boolean
     * @example
     * $('.class').hasClass('another-class');
     */
     hasClass: function(className) { 
-        //Only need to check first?
-        return this.selector[0].classList.contains(className);
+        var firstSelector = this.selector[0];
+        if(firstSelector.classList) {
+            return firstSelector.classList.contains(className);
+        } else {
+            return new RegExp('(^| )' + className + '( |$)', 'gi').test(firstSelector.className);
+        }  
     },
 
     /**
     * Attaches an event to the selector
-    * @memberOf bScript
+    * @memberOf svelte
     * @param {string} name Name of event e.g. click
     * @param {function} callback Callback to run when event is triggered
-    * @returns bScript
+    * @returns svelte
     * @example
     * $('.click-me').on('click', function() { alert('Clicked!'); });
     */
@@ -220,10 +222,10 @@ var bScript = {
 
     /**
     * Removes an event from the selector
-    * @memberOf bScript
+    * @memberOf svelte
     * @param {string} name Name of event e.g. click
     * @param {function} callback Callback to run when event is triggered
-    * @returns bScript
+    * @returns svelte
     * @example
     * $('.click-me').off('click', function() { alert('Clicked!'); });
     */
@@ -235,22 +237,27 @@ var bScript = {
 
     /**
     * Trigger an event from the selector
-    * @memberOf bScript
+    * @memberOf svelte
     * @param {string} name Name of event e.g. click
-    * @returns bScript
+    * @param {object} detail The data passed when initializing the event
+    * @returns svelte
     * @example
     * $('.click-me').trigger('click');
     */
-    trigger: function(name) {
+    trigger: function(name, detail) {
         return this.each(function(el) {
-            var triggerEvent = new Event(name);
+            var triggerEvent = ((detail) ? new CustomEvent(name, detail) : document.createEvent('HTMLEvents')); 
+            if(!detail) {
+                triggerEvent.initEvent(name, true, false);
+            }
+            
             el.dispatchEvent(triggerEvent);
         });
     },
 
     /**
     * Ajax function
-    * @memberOf bScript
+    * @memberOf svelte
     * @param {object} options Ajax options
     * @example 
         $.fn.ajax({
@@ -270,10 +277,16 @@ var bScript = {
         options.url = options.url || location.href;
         options.data = options.data || null;
         options.type = options.type || 'GET';
+        options.cache = options.cache || true;
         options.success = options.success || function() {};
         options.error = options.error || function() {};
 
-        httpRequest.open(options.type, options.url);
+        var pageUrl = ((!options.cache) ? options.url : (options.url + ((/\?/).test(options.url) ? "&" : "?") + (new Date()).getTime()));
+
+        httpRequest.open(options.type, pageUrl);
+        if(options.type === 'POST') {
+            httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+        }
         httpRequest.send(options.data);
 
         httpRequest.onreadystatechange = function() {
@@ -290,8 +303,8 @@ var bScript = {
 
     /**
     * Find the previous sibling to the current selector
-    * @memberOf bScript
-    * @returns bScript
+    * @memberOf svelte
+    * @returns svelte
     * @example
     * $('.selector').prev();
     */
@@ -302,8 +315,8 @@ var bScript = {
 
     /**
     * Find the next sibling to the current selector
-    * @memberOf bScript
-    * @returns bScript
+    * @memberOf svelte
+    * @returns svelte
     * @example
     * $('.selector').next();
     */
@@ -314,20 +327,20 @@ var bScript = {
 
     /**
     * Find the first element of the selector
-    * @memberOf bScript
-    * @returns bScript
+    * @memberOf svelte
+    * @returns svelte
     * @example
     * $('.selector').first();
     */
     first: function() {         
-        this.selector = this.selector.slice(0,1);
+        this.selector = this.selector[0];
         return this;
     },
 
     /**
     * Find the last element of the selector
-    * @memberOf bScript
-    * @returns bScript
+    * @memberOf svelte
+    * @returns svelte
     * @example
     * $('.selector').last();
     */
@@ -339,12 +352,12 @@ var bScript = {
 
     /**
     * Add HTML to the page in relation to the current selector
-    * @memberOf bScript
+    * @memberOf svelte
     * @param {string} position The position to add the html - before, after, atstart, atend
     * @param {string} html The HTML to add
-    * @returns bScript
+    * @returns svelte
     * @example
-    * $('.html').append('before','&lt;p>I am before&lt;/p>');
+    * $('.html').append('before','<p>I am before</p>');
     */
     append: function(position, html) {  
         return this.each(function(el) {
@@ -361,36 +374,44 @@ var bScript = {
 
     /**
     * Set the text of a selector
-    * @memberOf bScript
+    * @memberOf svelte
     * @param {string} text Text to set
-    * @returns bScript
+    * @returns svelte or text
     * @example
     * $('.text').text('Some text.');
     */
     text: function(text) {  
-        return this.each(function(el) {
-            el.textContent = text;
-        });
+        if(text) {
+            return this.each(function(el) {
+                el.textContent = text;
+            });
+        } else {
+            return this.selector[0].textContent.trim();
+        }
     },
 
     /**
     * Set the HTML of a selector
-    * @memberOf bScript
+    * @memberOf svelte
     * @param {string} html HTML to set
-    * @returns bScript
+    * @returns svelte or HTML
     * @example
-    * $('.text').html('&lt;span>A span.&lt;/span>');
+    * $('.text').html('<span>A span.</span>');
     */
     html: function(html) {  
-        return this.each(function(el) {
-            el.innerHTML = html;
-        });
+        if(html) {
+            return this.each(function(el) {
+                el.innerHTML = html;
+            });
+        } else {
+            return this.selector[0].innerHTML;
+        }
     },
 
     /**
     * Empty the HTML of a selector
-    * @memberOf bScript
-    * @returns bScript
+    * @memberOf svelte
+    * @returns svelte
     * @example
     * $('.empty-me').empty();
     */
@@ -402,21 +423,21 @@ var bScript = {
 
     /**
     * Clone a selector
-    * @memberOf bScript
-    * @returns bScript
+    * @memberOf svelte
+    * @returns svelte
     * @example
     * $('.empty-me').clone();
     */
     clone: function() {  
         return this.each(function(el) {
-            el.clodeNode();
+            el.clodeNode(true);
         });
     },
 
     /**
     * Removes a selector
-    * @memberOf bScript
-    * @returns bScript
+    * @memberOf svelte
+    * @returns svelte
     * @example
     * $('.remove-me').remove();
     */
@@ -428,10 +449,10 @@ var bScript = {
 
     /**
     * Set the attribute of a selector
-    * @memberOf bScript
+    * @memberOf svelte
     * @param {string} name Attr to set
     * @param {string} value Value to set
-    * @returns bScript
+    * @returns svelte
     * @example
     * $('.attr').setAttr('data-attr','Value');
     */
@@ -443,7 +464,7 @@ var bScript = {
 
     /**
     * Get the value of an attribute of a selector
-    * @memberOf bScript
+    * @memberOf svelte
     * @param {string} name Attr to get
     * @returns Attribute value
     * @example
@@ -455,9 +476,9 @@ var bScript = {
 
     /**
     * Remove an attribute from a selector
-    * @memberOf bScript
+    * @memberOf svelte
     * @param {string} name Attr to remove
-    * @returns bScript
+    * @returns svelte
     * @example
     * $('.attr').removeAttr('data-attr');
     */
@@ -469,7 +490,7 @@ var bScript = {
 
     /**
     * Get the value of a selector
-    * @memberOf bScript
+    * @memberOf svelte
     * @returns value
     * @example
     * $('.input').val();
@@ -480,7 +501,7 @@ var bScript = {
 
     /**
     * Get the number of matched elements in the selector
-    * @memberOf bScript
+    * @memberOf svelte
     * @returns length
     * @example
     * $('.length').length();
@@ -491,7 +512,7 @@ var bScript = {
 
     /**
     * Get the height of the first element in the selector
-    * @memberOf bScript
+    * @memberOf svelte
     * @returns height
     * @example
     * $('.height').height();
@@ -502,7 +523,7 @@ var bScript = {
 
     /**
     * Get the width of the first element in the selector
-    * @memberOf bScript
+    * @memberOf svelte
     * @returns height
     * @example
     * $('.width').width();
@@ -512,8 +533,19 @@ var bScript = {
     },
 
     /**
+    * Returns the position of the first element in the selector relative to the viewport
+    * @memberOf svelte
+    * @returns TextRectangle object
+    * @example
+    * $('.position').position();
+    */
+    position: function() {  
+        return this.selector[0].getBoundingClientRect();
+    },
+
+    /**
     * Returns true if the element matches the selector string
-    * @memberOf bScript
+    * @memberOf svelte
     * @param {string} selector Selector to match
     * @returns boolean
     * @example
@@ -527,9 +559,9 @@ var bScript = {
     }
 };
 
-/** @constructor bScript */
+/** @constructor svelte */
 function $(selector, context) {
-    return Object.create(bScript, {        
+    return Object.create(svelte, {        
         selector: {
             get: function () { 
                 if(typeof selector  === 'string') {
@@ -544,7 +576,7 @@ function $(selector, context) {
             }
         },
         name: {
-            value: 'bScript'
+            value: 'svelte'
         },
         version: {
             value: '1.0.0'
@@ -552,32 +584,13 @@ function $(selector, context) {
     });
 }
 
-//Expose bScript to the world:-)
+//Expose svelte to the world:-)
 window.$ = $;
 
-//Expose functions to the world:-)
-window.$.fn = window.$.bScript = bScript;
+//Expose functions to the world
+window.$.fn = window.$.svelte = svelte;
 
-}(window, document));   </code></pre>
-        </article>
-    </section>
+//Shortcut to domready
+window.domready = svelte.domready;
 
-
-
-
-</div>
-
-<nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="bScript.html">bScript</a></li></ul>
-</nav>
-
-<br clear="both">
-
-<footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Mon May 05 2014 18:13:55 GMT+0100 (BST)
-</footer>
-
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
-</body>
-</html>
+}(window, document));   
