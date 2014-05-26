@@ -1,10 +1,10 @@
-svelte - The lightweight modern JavaScript framework
+svelte - A lightweight modern JavaScript library
 ======================================
 
 What is svelte?
 ---------------------
 
-It is a lightweight modern JavaScript framework (4.33KB minified) intended for use on projects where legacy browser support is not necessary.
+It is a lightweight modern JavaScript library (4.33KB minified) intended for use on projects where legacy browser support is not necessary.
 
 It uses mordern javascript (querySelectorAll, forEach, classList, matchesSelector) to help make it as lightweight as possible and therefore only works on the latest version of mordern browsers E.g. Chrome, Firefox, Opera, IE9+.
 
@@ -24,7 +24,7 @@ Getting Started
 How To
 ---------------------
 
-Examples of every function can be found on the test page. If you have used other JavaScript frameworks most functions will be familiar to you. For example, to set the text of an element, you would write:
+Examples of every function can be found on the test page. If you have used other JavaScript like Zepto or jQuery most functions will be familiar to you. For example, to set the text of an element, you would write:
 
 	$('.hello').text("Hello svelte");
 
