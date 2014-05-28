@@ -94,15 +94,18 @@
         // $.fn.hide = function() {
         //     return "yo";
         // }
-        // console.log($(".test-hide").hide());
+        console.log($("body",'p'));
+
+        //console.log($('main').find('p').css('color', 'orange'));
 
         console.log($('.test-css').first());
 
         console.log($(".visible").visible());
         console.log($(".not-visible").visible());
 
+        console.log($('main').children());
 
-
+        //$('main').children().css('background-color', 'pink');
 
 
         $(".test-css").css("color","red").css("border","1px solid red");

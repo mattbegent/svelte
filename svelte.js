@@ -46,8 +46,7 @@ var svelte = {
     * $('.parent').find('.child');
     */
     find: function(selector) {
-        this.selector = this.selector[0].querySelectorAll(selector);
-        return this;
+        return $(selector, this.selector[0]);
     },
 
     /**
@@ -351,6 +350,30 @@ var svelte = {
     },
 
     /**
+    * Find the parent of the selector
+    * @memberOf svelte
+    * @returns svelte
+    * @example
+    * $('.selector').parent();
+    */
+    parent: function() {  
+        this.selector = this.selector[0].parentNode;
+        return this;
+    },
+
+    /**
+    * Find the children of the selector
+    * @memberOf svelte
+    * @returns svelte
+    * @example
+    * $('.selector').children();
+    */
+    children: function() {  
+        this.selector.slice.call(this.selector[0].children);
+        return this;
+    },
+
+    /**
     * Add HTML to the page in relation to the current selector
     * @memberOf svelte
     * @param {string} position The position to add the html - before, after, atstart, atend
@@ -405,6 +428,24 @@ var svelte = {
             });
         } else {
             return this.selector[0].innerHTML;
+        }
+    },
+
+    /**
+    * Set the outerHTML of a selector
+    * @memberOf svelte
+    * @param {string} html HTML to set
+    * @returns svelte or HTML
+    * @example
+    * $('.text').outerHTML('<span>A span.</span>');
+    */
+    outerHTML: function(html) {  
+        if(html) {
+            return this.each(function(el) {
+                el.outerHTML = html;
+            });
+        } else {
+            return this.selector[0].outerHTML;
         }
     },
 
@@ -563,10 +604,10 @@ var svelte = {
 function $(selector, context) {
     return Object.create(svelte, {        
         selector: {
-            get: function () { 
+            get: function () {
                 if(typeof selector  === 'string') {
-                    var startAt = document.querySelector(context) || document;
-                    return Array.prototype.slice.call(startAt.querySelectorAll(selector));            
+                    var startAt = ((context  === 'string') ? document.querySelectorAll(selector) : context) || document; // tidy up
+                    return [].slice.call(startAt.querySelectorAll(selector));            
                 } else {
                     return [selector]; // could be an object, dom node or a function but always kept in an array
                 }
