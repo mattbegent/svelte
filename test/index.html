@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../animate.css">
 </head>
 
 <body>
@@ -52,7 +53,7 @@
 
             <h2>getAttr</h2>
 
-            <p data-attr="Testing" class="test-attr">Testing attributes</p>
+            <p data-attr="Testing attr" class="test-attr">Testing attributes</p>
 
 <!--             <h2>on</h2>
 
@@ -94,6 +95,18 @@
         // $.fn.hide = function() {
         //     return "yo";
         // }
+
+        // $('body').one('click', function() {
+        //     alert('yo');
+        // });
+        $('main').animate('shake', function() {
+            console.log('end');
+        });
+
+        $('main h2').on('mouseover', function(e) {
+            var currentTarget = $(e.currentTarget);
+            currentTarget.animate('pulse'); 
+        });
         console.log($("body",'p'));
 
         //console.log($('main').find('p').css('color', 'orange'));
@@ -106,6 +119,10 @@
         console.log($('main').children());
 
         //$('main').children().css('background-color', 'pink');
+
+        $('p').each(function(el) {
+            $(el).css('color', 'pink');
+        });
 
 
         $(".test-css").css("color","red").css("border","1px solid red");
@@ -144,7 +161,7 @@
         console.log($("#select").val());
         console.log($("body").find('.test-show'));
 
-        console.log($(".test-attr").getAttr('data-attr'));
+        console.log($(".test-attr").attr('data-attr'));
 
         console.log($('.test-toggle-trigger').selector[0].getBoundingClientRect().left);
 

@@ -1,6 +1,6 @@
 {
   "name": "svelte",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/mattbegent/svelte.git"
@@ -8,6 +8,7 @@
   "devDependencies": {
     "grunt": "*",
     "grunt-jsdoc": "*",
-    "grunt-contrib-uglify": "*"
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-jshint": "*"
   }
 }

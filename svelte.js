@@ -1,7 +1,7 @@
 /**
 * @fileOverview svelte - the lightweight modern JavaScript framework 
 * @author Matt Begent
-* @version 1.0.0
+* @version 1.1.0
 */
 
 (function (window, document) {
@@ -216,6 +216,25 @@ var svelte = {
     on: function(name, callback) {  
         return this.each(function(el) {
             el.addEventListener(name, callback);
+        });
+    },
+
+    /**
+    * Attaches an event to the selector and removes after callback
+    * @memberOf svelte
+    * @param {string} name Name of event e.g. click
+    * @param {function} callback Callback to run when event is triggered
+    * @returns svelte
+    * @example
+    * $('.click-me').one('click', function() { alert('Clicked!'); });
+    */
+    one: function(name, callback) {  
+        return this.each(function(el) {
+            var callbackWithRemove = function() {
+                callback();
+                el.removeEventListener(name, callbackWithRemove); // remove event
+            };
+            el.addEventListener(name, callbackWithRemove);
         });
     },
 
@@ -489,30 +508,23 @@ var svelte = {
     },
 
     /**
-    * Set the attribute of a selector
+    * Get or set the attribute of a selector
     * @memberOf svelte
-    * @param {string} name Attr to set
+    * @param {string} name Attr to get or set
     * @param {string} value Value to set
     * @returns svelte
     * @example
-    * $('.attr').setAttr('data-attr','Value');
+    * $('.get-attr').attr('data-attr');
+    * $('.set-attr').attr('data-attr','Value');
     */
-    setAttr: function(name, value) {  
-        return this.each(function(el) {
-            el.setAttribute(name, value);
-        });
-    },
-
-    /**
-    * Get the value of an attribute of a selector
-    * @memberOf svelte
-    * @param {string} name Attr to get
-    * @returns Attribute value
-    * @example
-    * $('.attr').setAttr('data-attr');
-    */
-    getAttr: function(name) {  
-        return this.selector[0].getAttribute(name);
+    attr: function(name, value) {  
+        if(!value) {
+            return this.selector[0].getAttribute(name);
+        } else {
+            return this.each(function(el) {
+                el.setAttribute(name, value);
+            });
+        }
     },
 
     /**
@@ -597,7 +609,34 @@ var svelte = {
         // Tidy up
         Element.prototype.matches =  Element.prototype.matches || Element.prototype.matchesSelector || Element.prototype.msMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.webkitMatchesSelector;
         return el.matches(selector);
+    },
+
+    /**
+    * Animates elements using CSS a callback
+    * @memberOf svelte
+    * @param {string} name Name of animation
+    * @param {function} callback Callback after animation is complete
+    * @returns Svelte
+    * @example
+    * $('.animate').animate('fadeIn',  function() { console.log('Complete'); });
+    */
+    animate: function(name, callback) {
+
+        var current = this;
+        current.removeClass('sv-' + name);
+
+        function animationCallback() {
+            if(callback) {
+               callback(); 
+            }
+            if(name !== 'fadeOut') { // fadeOut retains state
+               current.removeClass('sv-' + name); 
+            }
+        }
+
+        current.addClass('sv-' + name).one('animationend', animationCallback).one('webkitAnimationEnd', animationCallback);
     }
+    
 };
 
 /** @constructor svelte */
@@ -620,7 +659,7 @@ function $(selector, context) {
             value: 'svelte'
         },
         version: {
-            value: '1.0.0'
+            value: '1.1.0'
         }
     });
 }

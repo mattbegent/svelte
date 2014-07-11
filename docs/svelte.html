@@ -76,7 +76,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line603">line 603</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line642">line 642</a>
     </li></ul></dd>
     
     
@@ -343,7 +343,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line273">line 273</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line292">line 292</a>
     </li></ul></dd>
     
     
@@ -379,6 +379,161 @@
                 $(".test-json").text("An error has occurred");
             }
         });</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="animate"><span class="type-signature">&lt;static> </span>animate<span class="signature">(name, callback)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Animates elements using CSS a callback
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Name of animation</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Callback after animation is complete</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line623">line 623</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Svelte
+</div>
+
+
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>$('.animate').animate('fadeIn',  function() { console.log('Complete'); });</code></pre>
 
     
 </dd>
@@ -498,7 +653,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line385">line 385</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line404">line 404</a>
     </li></ul></dd>
     
     
@@ -534,6 +689,161 @@
         <h5>Example</h5>
         
     <pre class="prettyprint"><code>$('.html').append('before','<p>I am before</p>');</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="attr"><span class="type-signature">&lt;static> </span>attr<span class="signature">(name, value)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Get or set the attribute of a selector
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Attr to get or set</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Value to set</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line520">line 520</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    svelte
+</div>
+
+
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>$('.get-attr').attr('data-attr');$('.set-attr').attr('data-attr','Value');</code></pre>
 
     
 </dd>
@@ -582,7 +892,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line371">line 371</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line390">line 390</a>
     </li></ul></dd>
     
     
@@ -666,7 +976,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line472">line 472</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line491">line 491</a>
     </li></ul></dd>
     
     
@@ -1169,7 +1479,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line459">line 459</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line478">line 478</a>
     </li></ul></dd>
     
     
@@ -1385,7 +1695,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line334">line 334</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line353">line 353</a>
     </li></ul></dd>
     
     
@@ -1421,138 +1731,6 @@
         <h5>Example</h5>
         
     <pre class="prettyprint"><code>$('.selector').first();</code></pre>
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="getAttr"><span class="type-signature">&lt;static> </span>getAttr<span class="signature">(name)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Get the value of an attribute of a selector
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">Attr to get</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line514">line 514</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Attribute value
-</div>
-
-
-
-        
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="prettyprint"><code>$('.attr').setAttr('data-attr');</code></pre>
 
     
 </dd>
@@ -1685,7 +1863,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line561">line 561</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line573">line 573</a>
     </li></ul></dd>
     
     
@@ -1901,7 +2079,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line424">line 424</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line443">line 443</a>
     </li></ul></dd>
     
     
@@ -1985,7 +2163,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line346">line 346</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line365">line 365</a>
     </li></ul></dd>
     
     
@@ -2069,7 +2247,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line550">line 550</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line562">line 562</a>
     </li></ul></dd>
     
     
@@ -2201,7 +2379,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line595">line 595</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line607">line 607</a>
     </li></ul></dd>
     
     
@@ -2285,7 +2463,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line322">line 322</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line341">line 341</a>
     </li></ul></dd>
     
     
@@ -2440,7 +2618,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line231">line 231</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line250">line 250</a>
     </li></ul></dd>
     
     
@@ -2638,6 +2816,161 @@
         
             
 <dt>
+    <h4 class="name" id="one"><span class="type-signature">&lt;static> </span>one<span class="signature">(name, callback)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Attaches an event to the selector and removes after callback
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Name of event e.g. click</td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last">Callback to run when event is triggered</td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line231">line 231</a>
+    </li></ul></dd>
+    
+    
+    
+    
+    
+    
+    
+</dl>
+
+    
+    
+
+    
+
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    svelte
+</div>
+
+
+
+        
+    
+    
+        <h5>Example</h5>
+        
+    <pre class="prettyprint"><code>$('.click-me').one('click', function() { alert('Clicked!'); });</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
     <h4 class="name" id="outerHTML"><span class="type-signature">&lt;static> </span>outerHTML<span class="signature">(html)</span><span class="type-signature"></span></h4>
     
     
@@ -2727,7 +3060,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line442">line 442</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line461">line 461</a>
     </li></ul></dd>
     
     
@@ -2811,7 +3144,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line359">line 359</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line378">line 378</a>
     </li></ul></dd>
     
     
@@ -2895,7 +3228,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line583">line 583</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line595">line 595</a>
     </li></ul></dd>
     
     
@@ -2979,7 +3312,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line310">line 310</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line329">line 329</a>
     </li></ul></dd>
     
     
@@ -3063,7 +3396,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line485">line 485</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line504">line 504</a>
     </li></ul></dd>
     
     
@@ -3195,7 +3528,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line526">line 526</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line538">line 538</a>
     </li></ul></dd>
     
     
@@ -3363,161 +3696,6 @@
         <h5>Example</h5>
         
     <pre class="prettyprint"><code>$('.class remove-class').removeClass('remove-class');</code></pre>
-
-    
-</dd>
-
-        
-            
-<dt>
-    <h4 class="name" id="setAttr"><span class="type-signature">&lt;static> </span>setAttr<span class="signature">(name, value)</span><span class="type-signature"></span></h4>
-    
-    
-</dt>
-<dd>
-    
-    
-    <div class="description">
-        Set the attribute of a selector
-    </div>
-    
-
-    
-    
-    
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params">
-    <thead>
-	<tr>
-		
-		<th>Name</th>
-		
-		
-		<th>Type</th>
-		
-		
-		
-		
-		
-		<th class="last">Description</th>
-	</tr>
-	</thead>
-	
-	<tbody>
-	
-	
-        <tr>
-            
-                <td class="name"><code>name</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">Attr to set</td>
-        </tr>
-	
-	
-	
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-            
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-            
-            
-            
-            
-            
-            <td class="description last">Value to set</td>
-        </tr>
-	
-	
-	</tbody>
-</table>
-    
-    
-    
-<dl class="details">
-    
-        
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line500">line 500</a>
-    </li></ul></dd>
-    
-    
-    
-    
-    
-    
-    
-</dl>
-
-    
-    
-
-    
-
-    
-    
-    
-    
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    svelte
-</div>
-
-
-
-        
-    
-    
-        <h5>Example</h5>
-        
-    <pre class="prettyprint"><code>$('.attr').setAttr('data-attr','Value');</code></pre>
 
     
 </dd>
@@ -3698,7 +3876,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line406">line 406</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line425">line 425</a>
     </li></ul></dd>
     
     
@@ -4069,7 +4247,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line246">line 246</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line265">line 265</a>
     </li></ul></dd>
     
     
@@ -4153,7 +4331,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line539">line 539</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line551">line 551</a>
     </li></ul></dd>
     
     
@@ -4321,7 +4499,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line572">line 572</a>
+        <a href="svelte.js.html">svelte.js</a>, <a href="svelte.js.html#line584">line 584</a>
     </li></ul></dd>
     
     
@@ -4383,7 +4561,7 @@
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Wed May 28 2014 19:33:07 GMT+0100 (BST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Fri Jul 11 2014 09:10:45 GMT+0100 (BST)
 </footer>
 
 <script> prettyPrint(); </script>

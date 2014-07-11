@@ -43,6 +43,7 @@ API
 * toggleClass(className)
 * hasClass(className)
 * on(name, callback)
+* one(name, callback)
 * off(name, callback)
 * trigger(eventName, detail)
 * ajax({ url: url, data: data, type: type, cache: true, success: sucess, error: error }})
@@ -58,8 +59,7 @@ API
 * empty()
 * clone()
 * remove()
-* setAttr(name, value)
-* getAttr(name)
+* attr(name, (value))
 * removeAttr(name)
 * val()
 * length()
@@ -67,6 +67,7 @@ API
 * width()
 * position()
 * matches(selector)
+* animate(name, callback) - currently fadeIn, fadeOut, pulse and shake, however you can add more
 
 Custom functions
 ---------------------
