@@ -1,7 +1,7 @@
 /**
 * @fileOverview svelte - the lightweight modern JavaScript framework 
 * @author Matt Begent
-* @version 1.1.0
+* @version 1.1.1
 */
 
 (function (window, document) {
@@ -13,13 +13,18 @@ var svelte = {
     /**
     * The dom ready function
     * @memberOf svelte
-    * @param {function} callback Run functions when the dom is loaded
+    * @param {function} callback Run functions when the dom is interactive or already loaded
     * @returns svelte
     * @example
     * domready(function() { });
     */
     domready: function(callback){
-        document.addEventListener('DOMContentLoaded', callback);
+        var readyState = document.readyState;
+        if(readyState === 'complete' || readyState === 'loaded') { // if we are already go to go e.g. if using aync
+            callback();
+        } else {
+            document.addEventListener('DOMContentLoaded', callback);
+        }
     },
 
     /**
@@ -659,18 +664,21 @@ function $(selector, context) {
             value: 'svelte'
         },
         version: {
-            value: '1.1.0'
+            value: '1.1.1'
         }
     });
 }
 
-//Expose svelte to the world:-)
+// Expose svelte to the world:-)
 window.$ = $;
 
-//Expose functions to the world
+// Expose functions to the world
 window.$.fn = window.$.svelte = svelte;
 
-//Shortcut to domready
+// Shortcut to domready
 window.domready = svelte.domready;
+
+// If using jQuery style
+window.$.ready = svelte.domready;
 
 }(window, document));   
