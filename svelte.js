@@ -1,7 +1,7 @@
 /**
 * @fileOverview svelte - the lightweight modern JavaScript framework 
 * @author Matt Begent
-* @version 1.1.1
+* @version 1.1.2 
 */
 
 (function (window, document) {
@@ -256,6 +256,18 @@ var svelte = {
         return this.each(function(el) {
             el.removeEventListener(name, callback);
         });
+    },
+
+    /**
+    * Sets the first selector to be focussed
+    * @memberOf svelte
+    * @returns svelte
+    * @example
+    * $('.focus').focus();
+    */
+    focus: function() {  
+        this.selector[0].focus();
+        return this;
     },
 
     /**

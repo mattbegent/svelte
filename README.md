@@ -45,6 +45,7 @@ API
 * on(name, callback)
 * one(name, callback)
 * off(name, callback)
+* focus()
 * trigger(eventName, detail)
 * ajax({ url: url, data: data, type: type, cache: true, success: sucess, error: error }})
 * next()
