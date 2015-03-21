@@ -1,4 +1,4 @@
-svelte - A lightweight modern JavaScript library
+svelte
 ======================================
 
 What is svelte?

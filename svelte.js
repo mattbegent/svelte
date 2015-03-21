@@ -1,5 +1,5 @@
 /**
-* @fileOverview svelte - the lightweight modern JavaScript framework 
+* @fileOverview svelte - the lightweight modern DOM manipulation and events library
 * @author Matt Begent
 * @version 1.2.0 
 */

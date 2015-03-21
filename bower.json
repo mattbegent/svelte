@@ -1,0 +1,13 @@
+{
+  "name": "svelte",
+  "main": "svelte.min.js",
+  "version": "1.2.0",
+  "homepage": "http://sveltejs.com/",
+  "description": "The lightweight modern DOM manipulation and events library",
+  "keywords": [
+    "dom",
+    "lightweight",
+    "events"
+  ],
+  "license": "MIT"
+}
