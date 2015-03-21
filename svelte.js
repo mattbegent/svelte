@@ -1,7 +1,7 @@
 /**
 * @fileOverview svelte - the lightweight modern JavaScript framework 
 * @author Matt Begent
-* @version 1.1.2 
+* @version 1.2.0 
 */
 
 (function (window, document) {
@@ -36,9 +36,9 @@ var svelte = {
     * $('.each').each(function() { });
     */
     each: function(callback) {  
-        [].forEach.call(this.selector, function(el) {
-            callback(el);
-        });
+        for (var i = 0; i < this.selector.length; i++) {
+            callback(this.selector[i]);
+        }
         return this; 
     },
 
@@ -138,11 +138,7 @@ var svelte = {
     */
     addClass: function(className) {  
         return this.each(function(el) {
-            if (el.classList) {
-                el.classList.add(className); 
-            } else { // IE9
-               el.className += ' ' + className; 
-            }
+            el.classList.add(className); 
         }); 
     },
 
@@ -156,11 +152,7 @@ var svelte = {
     */
     removeClass: function(className) {  
         return this.each(function(el) {
-            if (el.classList) {
-                el.classList.remove(className);
-            } else { // IE9
-                el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
-            }
+            el.classList.remove(className);
         });
     },
 
@@ -174,22 +166,7 @@ var svelte = {
     */
     toggleClass: function(className) {  
         return this.each(function(el) {
-            if(el.classList) {
-                el.classList.toggle(className);
-            } else { // IE9
-
-                var classes = el.className.split(' ');
-                var existingIndex = classes.indexOf(className);
-
-                if (existingIndex >= 0) {
-                    classes.splice(existingIndex, 1);
-                } else {
-                    classes.push(className);
-                }  
-
-                el.className = classes.join(' ');
-
-            }
+            el.classList.toggle(className);
         });
     },
 
@@ -201,12 +178,8 @@ var svelte = {
     * $('.class').hasClass('another-class');
     */
     hasClass: function(className) { 
-        var firstSelector = this.selector[0];
-        if(firstSelector.classList) {
-            return firstSelector.classList.contains(className);
-        } else {
-            return new RegExp('(^| )' + className + '( |$)', 'gi').test(firstSelector.className);
-        }  
+        return this.selector[0].classList.contains(className);
+ 
     },
 
     /**
@@ -583,7 +556,7 @@ var svelte = {
     /**
     * Get the height of the first element in the selector
     * @memberOf svelte
-    * @returns height
+    * @returns number height
     * @example
     * $('.height').height();
     */
@@ -594,7 +567,7 @@ var svelte = {
     /**
     * Get the width of the first element in the selector
     * @memberOf svelte
-    * @returns height
+    * @returns number width
     * @example
     * $('.width').width();
     */
@@ -626,32 +599,6 @@ var svelte = {
         // Tidy up
         Element.prototype.matches =  Element.prototype.matches || Element.prototype.matchesSelector || Element.prototype.msMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.webkitMatchesSelector;
         return el.matches(selector);
-    },
-
-    /**
-    * Animates elements using CSS a callback
-    * @memberOf svelte
-    * @param {string} name Name of animation
-    * @param {function} callback Callback after animation is complete
-    * @returns Svelte
-    * @example
-    * $('.animate').animate('fadeIn',  function() { console.log('Complete'); });
-    */
-    animate: function(name, callback) {
-
-        var current = this;
-        current.removeClass('sv-' + name);
-
-        function animationCallback() {
-            if(callback) {
-               callback(); 
-            }
-            if(name !== 'fadeOut') { // fadeOut retains state
-               current.removeClass('sv-' + name); 
-            }
-        }
-
-        current.addClass('sv-' + name).one('animationend', animationCallback).one('webkitAnimationEnd', animationCallback);
     }
     
 };
@@ -676,7 +623,7 @@ function $(selector, context) {
             value: 'svelte'
         },
         version: {
-            value: '1.1.1'
+            value: '1.2.0'
         }
     });
 }

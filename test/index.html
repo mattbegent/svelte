@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="../animate.css">
 </head>
 
 <body>
@@ -101,14 +100,7 @@
         // $('body').one('click', function() {
         //     alert('yo');
         // });
-        $('main').animate('shake', function() {
-            console.log('end');
-        });
 
-        $('main h2').on('mouseover', function(e) {
-            var currentTarget = $(e.currentTarget);
-            currentTarget.animate('pulse'); 
-        });
         console.log($("body",'p'));
 
         //console.log($('main').find('p').css('color', 'orange'));
@@ -135,9 +127,10 @@
 
         $("p").on("click", function(e) {
             e.preventDefault();
-            console.log(e);
-            console.log(e.currentTarget);
-            console.log($(e.currentTarget))
+            console.log($(this).css('background-color', 'orange'));
+            // console.log(e);
+            // console.log(e.currentTarget);
+            // console.log($(e.currentTarget))
             if($(e.currentTarget).matches(".test-toggle-trigger")) {
                 $(".test-toggle").toggle();
             } else {

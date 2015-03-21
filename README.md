@@ -4,9 +4,9 @@ svelte - A lightweight modern JavaScript library
 What is svelte?
 ---------------------
 
-It is a lightweight modern JavaScript library (4.33KB minified) intended for use on projects where legacy browser support is not necessary.
+It is a lightweight modern JavaScript library (4.34KB minified) intended for use on projects where legacy browser support is not necessary.
 
-It uses mordern JavaScript (querySelectorAll, forEach, classList, matchesSelector) to help make it as lightweight as possible and therefore only works on the latest version of mordern browsers E.g. Chrome, Firefox, Opera, IE9+.
+It uses mordern JavaScript (querySelectorAll, classList, matchesSelector) to help make it as lightweight as possible and therefore only works on the latest version of mordern browsers E.g. Chrome, Firefox, Opera, IE10+.
 
 Getting Started
 ---------------------
@@ -68,7 +68,6 @@ API
 * width()
 * position()
 * matches(selector)
-* animate(name, callback) - currently fadeIn, fadeOut, pulse and shake, however you can add more
 
 Custom functions
 ---------------------
