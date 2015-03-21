@@ -21,6 +21,10 @@ Getting Started
 	   //Insert all super cool functions here
 	});
 
+You can also install svelte using bower:
+
+	bower install svelte	
+
 How To
 ---------------------
 

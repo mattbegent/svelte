@@ -9,5 +9,9 @@
     "lightweight",
     "events"
   ],
+  "ignore": [
+    "docs",
+    "test"
+  ],
   "license": "MIT"
 }
