@@ -86,6 +86,15 @@ You can easily add a custom function to svelte by adding to $.fn.
 	
 	$('.says-cool').cool();
 
+IE9	
+---------------------
+
+If you need to support IE9, you will need to use a pollyfill for ClassList like [this one](https://github.com/remy/polyfills/blob/master/classList.js) and put it somewhere before svelte is included on the page.
+
+	<!--[if IE 9]>
+		<script src="js/classlist.js"></script>
+	<![endif]-->
+
 Roadmap
 ---------------------
 
