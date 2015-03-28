@@ -1,14 +1,14 @@
 /**
 * @fileOverview svelte - the lightweight modern DOM manipulation and events library
 * @author Matt Begent
-* @version 1.2.0 
+* @version 1.2.5 
 */
 
 (function (window, document) {
 
 'use strict'; 
 
-var svelte = {
+var svelteProto = {
 
     /**
     * The dom ready function
@@ -18,7 +18,7 @@ var svelte = {
     * @example
     * domready(function() { });
     */
-    domready: function(callback){
+    domready: function(callback) {
         var readyState = document.readyState;
         if(readyState === 'complete' || readyState === 'loaded') { // if we are already go to go e.g. if using aync
             callback();
@@ -36,8 +36,8 @@ var svelte = {
     * $('.each').each(function() { });
     */
     each: function(callback) {  
-        for (var i = 0; i < this.selector.length; i++) {
-            callback(this.selector[i]);
+        for (var i = 0, len = this.s.length; i < len; i++) {
+            callback(this.s[i]);
         }
         return this; 
     },
@@ -51,7 +51,7 @@ var svelte = {
     * $('.parent').find('.child');
     */
     find: function(selector) {
-        return $(selector, this.selector[0]);
+        return svelte(selector, this.s[0]);
     },
 
     /**
@@ -69,7 +69,7 @@ var svelte = {
                 el.style[property] = value;
             });
         } else {
-            return getComputedStyle(this.selector[0])[property];
+            return getComputedStyle(this.s[0])[property];
         }
     },
 
@@ -107,7 +107,7 @@ var svelte = {
     * $('.visible').visible();
     */
     visible: function() {
-        return this.selector[0].offsetWidth > 0 || this.selector[0].offsetHeight > 0;
+        return this.s[0].offsetWidth > 0 || this.s[0].offsetHeight > 0;
     },
     
     /**
@@ -178,7 +178,11 @@ var svelte = {
     * $('.class').hasClass('another-class');
     */
     hasClass: function(className) { 
-        return this.selector[0].classList.contains(className);
+        if(this.s.length > 0) {
+            return this.s[0].classList.contains(className);
+        } else {
+            return false;
+        }
  
     },
 
@@ -239,7 +243,7 @@ var svelte = {
     * $('.focus').focus();
     */
     focus: function() {  
-        this.selector[0].focus();
+        this.s[0].focus();
         return this;
     },
 
@@ -317,7 +321,7 @@ var svelte = {
     * $('.selector').prev();
     */
     prev: function() {  
-        this.selector = this.selector[0].previousElementSibling;
+        this.s = this.s[0].previousElementSibling;
         return this;
     },
 
@@ -329,7 +333,7 @@ var svelte = {
     * $('.selector').next();
     */
     next: function() {  
-        this.selector = this.selector[0].nextElementSibling;
+        this.s = this.s[0].nextElementSibling;
         return this;
     },
 
@@ -341,7 +345,7 @@ var svelte = {
     * $('.selector').first();
     */
     first: function() {         
-        this.selector = this.selector[0];
+        this.s = this.s[0];
         return this;
     },
 
@@ -353,8 +357,8 @@ var svelte = {
     * $('.selector').last();
     */
     last: function() {  
-        var arrayLength = this.selector.length;
-        this.selector = this.selector.slice(arrayLength-1,arrayLength);
+        var arrayLength = this.s.length;
+        this.s = this.s.slice(arrayLength-1,arrayLength);
         return this;
     },
 
@@ -366,7 +370,7 @@ var svelte = {
     * $('.selector').parent();
     */
     parent: function() {  
-        this.selector = this.selector[0].parentNode;
+        this.s = this.s[0].parentNode;
         return this;
     },
 
@@ -378,7 +382,7 @@ var svelte = {
     * $('.selector').children();
     */
     children: function() {  
-        this.selector.slice.call(this.selector[0].children);
+        this.s.slice.call(this.s[0].children);
         return this;
     },
 
@@ -418,7 +422,7 @@ var svelte = {
                 el.textContent = text;
             });
         } else {
-            return this.selector[0].textContent.trim();
+            return this.s[0].textContent.trim();
         }
     },
 
@@ -436,7 +440,7 @@ var svelte = {
                 el.innerHTML = html;
             });
         } else {
-            return this.selector[0].innerHTML;
+            return this.s[0].innerHTML;
         }
     },
 
@@ -454,7 +458,7 @@ var svelte = {
                 el.outerHTML = html;
             });
         } else {
-            return this.selector[0].outerHTML;
+            return this.s[0].outerHTML;
         }
     },
 
@@ -509,7 +513,7 @@ var svelte = {
     */
     attr: function(name, value) {  
         if(!value) {
-            return this.selector[0].getAttribute(name);
+            return this.s[0].getAttribute(name);
         } else {
             return this.each(function(el) {
                 el.setAttribute(name, value);
@@ -539,7 +543,7 @@ var svelte = {
     * $('.input').val();
     */
     val: function() {
-        return this.selector[0].value;
+        return this.s[0].value;
     },
 
     /**
@@ -550,7 +554,7 @@ var svelte = {
     * $('.length').length();
     */
     length: function() {  
-        return this.selector.length;
+        return this.s.length;
     },
 
     /**
@@ -561,7 +565,7 @@ var svelte = {
     * $('.height').height();
     */
     height: function() {  
-        return this.selector[0].offsetHeight;
+        return this.s[0].offsetHeight;
     },
 
     /**
@@ -572,7 +576,7 @@ var svelte = {
     * $('.width').width();
     */
     width: function() {  
-        return this.selector[0].offsetWidth;
+        return this.s[0].offsetWidth;
     },
 
     /**
@@ -583,7 +587,7 @@ var svelte = {
     * $('.position').position();
     */
     position: function() {  
-        return this.selector[0].getBoundingClientRect();
+        return this.s[0].getBoundingClientRect();
     },
 
     /**
@@ -595,7 +599,7 @@ var svelte = {
     * $('.paragraph').matches('p');
     */
     matches: function(selector) {  
-        var el = this.selector[0];
+        var el = this.s[0];
         // Tidy up
         Element.prototype.matches =  Element.prototype.matches || Element.prototype.matchesSelector || Element.prototype.msMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.webkitMatchesSelector;
         return el.matches(selector);
@@ -604,13 +608,20 @@ var svelte = {
 };
 
 /** @constructor svelte */
-function $(selector, context) {
-    return Object.create(svelte, {        
-        selector: {
+function svelte(selector, context) {
+    return Object.create(svelteProto, {        
+        s: {
             get: function () {
                 if(typeof selector  === 'string') {
                     var startAt = ((context  === 'string') ? document.querySelectorAll(selector) : context) || document; // tidy up
-                    return [].slice.call(startAt.querySelectorAll(selector));            
+                    var nl = startAt.querySelectorAll(selector);
+                    var arr = [];
+
+                    for (var i = 0, len = arr.length = nl.length; i < len; i++) {
+                        arr[i] = nl[i];
+                    }
+
+                    return arr;            
                 } else {
                     return [selector]; // could be an object, dom node or a function but always kept in an array
                 }
@@ -618,26 +629,17 @@ function $(selector, context) {
             set: function(value) {
                 selector = value;
             }
-        },
-        name: {
-            value: 'svelte'
-        },
-        version: {
-            value: '1.2.0'
         }
     });
 }
 
 // Expose svelte to the world:-)
-window.$ = $;
+window.$ = window.svelte = window.s = svelte;
 
 // Expose functions to the world
-window.$.fn = window.$.svelte = svelte;
+window.$.fn = svelteProto;
 
 // Shortcut to domready
-window.domready = svelte.domready;
-
-// If using jQuery style
-window.$.ready = svelte.domready;
+window.domready = svelteProto.domready;
 
 }(window, document));   
