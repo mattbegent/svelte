@@ -9,10 +9,14 @@
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
   <div class="test-selector"></div>
+  <div id="test-selector-id"></div>
   <div class="test-class"></div>
   <div class="test-find">
     <div class="test-find-child"></div>
   </div>
+  <div class="test-css" style="color: #FF0000;"></div>
+  <div class="test-hide"></div>
+   <div class="test-show"></div>
   <script src="../svelte.js"></script>
   <script src="http://code.jquery.com/qunit/qunit-1.17.1.js"></script>
   <script>
@@ -33,6 +37,8 @@
 
     QUnit.test( "Selector", function() {
         equal( $(".test-selector").length(), 1, ".test-selector length is 1" );
+        equal( $(".test-selector-2").length(), 0, ".test-selector-2 length is 0" );
+        equal( $("#test-selector-id").length(), 1, "#test-selector-id length is 1" );
     });
 
     QUnit.test( "Classes", function() {
@@ -46,6 +52,18 @@
     QUnit.test( "Find", function() {
         equal( $(".test-find").find(".test-find-child").length() === 1, true, "Child found" );
         equal( $(".test-find").find(".test-find-child").hasClass("test-find-child"), true, "Test child has class test-find-child" );
+    });
+
+    QUnit.test( "CSS", function() {
+        equal( $(".test-css").css("color") === "rgb(255, 0, 0)", true, "Can retrieve css value" );
+    });
+
+    QUnit.test( "Hide", function() {
+        equal( $(".test-hide").hide().css('display') === 'none', true, "Can hide elements" );
+    });
+
+    QUnit.test( "Show", function() {
+        equal( $(".test-show").show().css('display') === 'block', true, "Can show elements" );
     });
 
 

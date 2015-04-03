@@ -4,7 +4,7 @@ svelte
 What is svelte?
 ---------------------
 
-It is a lightweight modern JavaScript library (4.24KB minified) intended for use on projects where legacy browser support is not necessary.
+It is a lightweight modern JavaScript library (4.57KB minified) intended for use on projects where legacy browser support is not necessary.
 
 It uses mordern JavaScript (querySelectorAll, classList, matchesSelector) to help make it as lightweight as possible and therefore only works on the latest version of mordern browsers E.g. Chrome, Firefox, Opera, IE10+.
 
@@ -30,7 +30,7 @@ How To
 
 Examples of every function can be found on the test page. If you have used other JavaScript like Zepto or jQuery most functions will be familiar to you. For example, to set the text of an element, you would write:
 
-	$('.hello').text("Hello svelte");
+	$('.hello').text('Hello svelte');
 
 API
 ---------------------
@@ -50,6 +50,7 @@ API
 * one(name, callback)
 * off(name, callback)
 * focus()
+* blur()
 * trigger(eventName, detail)
 * ajax({ url: url, data: data, type: type, cache: true, success: sucess, error: error }})
 * next()

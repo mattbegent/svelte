@@ -18,8 +18,8 @@ module.exports = function(grunt) {
       uglify : {
         dist : {
             options: {
-                sourceMap: true,
-                banner: '/*** svelte - 1.2.5 ***/'
+                sourceMap: false,
+                banner: '/*** svelte - 1.3.0 ***/'
             },
             files: {
                 'svelte.min.js': ['svelte.js'],

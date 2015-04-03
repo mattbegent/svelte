@@ -1,7 +1,7 @@
 /**
 * @fileOverview svelte - the lightweight modern DOM manipulation and events library
 * @author Matt Begent
-* @version 1.2.5 
+* @version 1.3.0 
 */
 
 (function (window, document) {
@@ -12,9 +12,9 @@ var svelteProto = {
 
     /**
     * The dom ready function
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {function} callback Run functions when the dom is interactive or already loaded
-    * @returns svelte
+    * @returns Svelte
     * @example
     * domready(function() { });
     */
@@ -29,9 +29,9 @@ var svelteProto = {
 
     /**
     * Each loop
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {function} callback Function to be run on each selector
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.each').each(function() { });
     */
@@ -44,22 +44,22 @@ var svelteProto = {
 
     /**
     * Find a new selector within a parent selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} selector Find a new selector within a parent selector
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.parent').find('.child');
     */
     find: function(selector) {
-        return svelte(selector, this.s[0]);
+        return new Svelte(selector, this.s[0]);
     },
 
     /**
     * Set the CSS for an element
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} property Property of element to set
     * @param {string} value Value of property to set
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.color').css('color', 'red');
     */
@@ -75,8 +75,8 @@ var svelteProto = {
 
     /**
     * Sets selector to display none
-    * @memberOf svelte
-    * @returns svelte
+    * @memberOf Svelte
+    * @returns Svelte
     * @example
     * $('.hide').hide();
     */
@@ -88,8 +88,8 @@ var svelteProto = {
 
     /**
     * Sets selector to display block
-    * @memberOf svelte
-    * @returns svelte
+    * @memberOf Svelte
+    * @returns Svelte
     * @example
     * $('.show').show();
     */
@@ -101,18 +101,22 @@ var svelteProto = {
 
     /**
     * Checks whether the selector is visible
-    * @memberOf svelte
+    * @memberOf Svelte
     * @returns Boolean
     * @example
     * $('.visible').visible();
     */
     visible: function() {
-        return this.s[0].offsetWidth > 0 || this.s[0].offsetHeight > 0;
+        if(this.s.length > 0) {
+            return this.s[0].offsetWidth > 0 || this.s[0].offsetHeight > 0;
+        } else {
+            return false;
+        }
     },
     
     /**
     * Toggles the display property of the selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @returns Boolean
     * @example
     * $('.visible').visible();
@@ -130,9 +134,9 @@ var svelteProto = {
 
     /**
     * Adds a class to the selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} className Name of class to add
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.class').addClass('another-class');
     */
@@ -144,9 +148,9 @@ var svelteProto = {
 
     /**
     * Removes a class from the selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} className Name of class to remove
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.class remove-class').removeClass('remove-class');
     */
@@ -158,9 +162,9 @@ var svelteProto = {
 
     /**
     * Toggles a class from the selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} className Name of class to toggle
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.class toggle-class').toggleClass('toggle-class');
     */
@@ -172,7 +176,7 @@ var svelteProto = {
 
     /**
     * Checks whether the selector has a specific class
-    * @memberOf svelte
+    * @memberOf Svelte
     * @returns Boolean
     * @example
     * $('.class').hasClass('another-class');
@@ -188,10 +192,10 @@ var svelteProto = {
 
     /**
     * Attaches an event to the selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} name Name of event e.g. click
     * @param {function} callback Callback to run when event is triggered
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.click-me').on('click', function() { alert('Clicked!'); });
     */
@@ -203,10 +207,10 @@ var svelteProto = {
 
     /**
     * Attaches an event to the selector and removes after callback
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} name Name of event e.g. click
     * @param {function} callback Callback to run when event is triggered
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.click-me').one('click', function() { alert('Clicked!'); });
     */
@@ -222,10 +226,10 @@ var svelteProto = {
 
     /**
     * Removes an event from the selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} name Name of event e.g. click
     * @param {function} callback Callback to run when event is triggered
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.click-me').off('click', function() { alert('Clicked!'); });
     */
@@ -237,22 +241,38 @@ var svelteProto = {
 
     /**
     * Sets the first selector to be focussed
-    * @memberOf svelte
-    * @returns svelte
+    * @memberOf Svelte
+    * @returns Svelte
     * @example
     * $('.focus').focus();
     */
     focus: function() {  
-        this.s[0].focus();
+        if(this.s.length > 0) {
+            this.s[0].focus();
+        }
+        return this;
+    },
+
+    /**
+    * Removes keyboard focus from first selector
+    * @memberOf Svelte
+    * @returns Svelte
+    * @example
+    * $('.blur').blur();
+    */
+    blur: function() {  
+        if(this.s.length > 0) {
+            this.s[0].blur();
+        }
         return this;
     },
 
     /**
     * Trigger an event from the selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} name Name of event e.g. click
     * @param {object} detail The data passed when initializing the event
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.click-me').trigger('click');
     */
@@ -269,7 +289,7 @@ var svelteProto = {
 
     /**
     * Ajax function
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {object} options Ajax options
     * @example 
         $.fn.ajax({
@@ -315,83 +335,101 @@ var svelteProto = {
 
     /**
     * Find the previous sibling to the current selector
-    * @memberOf svelte
-    * @returns svelte
+    * @memberOf Svelte
+    * @returns Svelte
     * @example
     * $('.selector').prev();
     */
     prev: function() {  
-        this.s = this.s[0].previousElementSibling;
+        if(this.s.length > 0) {
+            this.s = this.s[0].previousElementSibling;
+        } else {
+            this.s = [];
+        }
         return this;
     },
 
     /**
     * Find the next sibling to the current selector
-    * @memberOf svelte
-    * @returns svelte
+    * @memberOf Svelte
+    * @returns Svelte
     * @example
     * $('.selector').next();
     */
     next: function() {  
-        this.s = this.s[0].nextElementSibling;
+        if(this.s.length > 0) {
+            this.s = this.s[0].nextElementSibling;
+        } else {
+            this.s = [];
+        }
         return this;
     },
 
     /**
     * Find the first element of the selector
-    * @memberOf svelte
-    * @returns svelte
+    * @memberOf Svelte
+    * @returns Svelte
     * @example
     * $('.selector').first();
     */
-    first: function() {         
-        this.s = this.s[0];
+    first: function() {    
+        if(this.s.length > 0) {     
+            this.s = this.s[0];
+        } 
         return this;
     },
 
     /**
     * Find the last element of the selector
-    * @memberOf svelte
-    * @returns svelte
+    * @memberOf Svelte
+    * @returns Svelte
     * @example
     * $('.selector').last();
     */
     last: function() {  
-        var arrayLength = this.s.length;
-        this.s = this.s.slice(arrayLength-1,arrayLength);
+        if(this.s.length > 0) {  
+            var arrayLength = this.s.length;
+            this.s = this.s.slice(arrayLength-1,arrayLength);
+        }
         return this;
     },
 
     /**
     * Find the parent of the selector
-    * @memberOf svelte
-    * @returns svelte
+    * @memberOf Svelte
+    * @returns Svelte
     * @example
     * $('.selector').parent();
     */
     parent: function() {  
-        this.s = this.s[0].parentNode;
+        if(this.s.length > 0) {  
+            this.s = this.s[0].parentNode;
+        }
         return this;
     },
 
     /**
     * Find the children of the selector
-    * @memberOf svelte
-    * @returns svelte
+    * @memberOf Svelte
+    * @returns Svelte
     * @example
     * $('.selector').children();
     */
     children: function() {  
-        this.s.slice.call(this.s[0].children);
+        if(this.s.length > 0) {  
+            this.s.slice.call(this.s[0].children);
+        } else {
+            this.s = [];
+        }
         return this;
     },
 
     /**
     * Add HTML to the page in relation to the current selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} position The position to add the html - before, after, atstart, atend
     * @param {string} html The HTML to add
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.html').append('before','<p>I am before</p>');
     */
@@ -399,10 +437,10 @@ var svelteProto = {
         return this.each(function(el) {
 
             switch(position.toLowerCase()){
-                case 'before': return el.insertAdjacentHTML('beforebegin',html);
-                case 'after': return el.insertAdjacentHTML('afterend',html);
-                case 'atstart': return el.insertAdjacentHTML('afterbegin',html);
-                case 'atend': return el.insertAdjacentHTML('beforeend',html);
+                case 'before': return el.insertAdjacentHTML('beforebegin', html);
+                case 'after': return el.insertAdjacentHTML('afterend', html);
+                case 'atstart': return el.insertAdjacentHTML('afterbegin', html);
+                case 'atend': return el.insertAdjacentHTML('beforeend', html);
             }
 
         });
@@ -410,9 +448,9 @@ var svelteProto = {
 
     /**
     * Set the text of a selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} text Text to set
-    * @returns svelte or text
+    * @returns Svelte or text
     * @example
     * $('.text').text('Some text.');
     */
@@ -428,9 +466,9 @@ var svelteProto = {
 
     /**
     * Set the HTML of a selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} html HTML to set
-    * @returns svelte or HTML
+    * @returns Svelte or HTML
     * @example
     * $('.text').html('<span>A span.</span>');
     */
@@ -446,9 +484,9 @@ var svelteProto = {
 
     /**
     * Set the outerHTML of a selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} html HTML to set
-    * @returns svelte or HTML
+    * @returns Svelte or HTML
     * @example
     * $('.text').outerHTML('<span>A span.</span>');
     */
@@ -464,8 +502,8 @@ var svelteProto = {
 
     /**
     * Empty the HTML of a selector
-    * @memberOf svelte
-    * @returns svelte
+    * @memberOf Svelte
+    * @returns Svelte
     * @example
     * $('.empty-me').empty();
     */
@@ -477,8 +515,8 @@ var svelteProto = {
 
     /**
     * Clone a selector
-    * @memberOf svelte
-    * @returns svelte
+    * @memberOf Svelte
+    * @returns Svelte
     * @example
     * $('.empty-me').clone();
     */
@@ -490,8 +528,8 @@ var svelteProto = {
 
     /**
     * Removes a selector
-    * @memberOf svelte
-    * @returns svelte
+    * @memberOf Svelte
+    * @returns Svelte
     * @example
     * $('.remove-me').remove();
     */
@@ -503,10 +541,10 @@ var svelteProto = {
 
     /**
     * Get or set the attribute of a selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} name Attr to get or set
     * @param {string} value Value to set
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.get-attr').attr('data-attr');
     * $('.set-attr').attr('data-attr','Value');
@@ -523,9 +561,9 @@ var svelteProto = {
 
     /**
     * Remove an attribute from a selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} name Attr to remove
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.attr').removeAttr('data-attr');
     */
@@ -537,18 +575,22 @@ var svelteProto = {
 
     /**
     * Get the value of a selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @returns value
     * @example
     * $('.input').val();
     */
     val: function() {
-        return this.s[0].value;
+        if(this.s.length > 0) {  
+            return this.s[0].value;
+        } else {
+            return undefined;
+        }
     },
 
     /**
     * Get the number of matched elements in the selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @returns length
     * @example
     * $('.length').length();
@@ -559,40 +601,52 @@ var svelteProto = {
 
     /**
     * Get the height of the first element in the selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @returns number height
     * @example
     * $('.height').height();
     */
     height: function() {  
-        return this.s[0].offsetHeight;
+        if(this.s.length > 0) {  
+            return this.s[0].offsetHeight;
+        } else {
+            return null;
+        }
     },
 
     /**
     * Get the width of the first element in the selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @returns number width
     * @example
     * $('.width').width();
     */
     width: function() {  
-        return this.s[0].offsetWidth;
+        if(this.s.length > 0) {  
+            return this.s[0].offsetWidth;
+        } else {
+            return null;
+        }
     },
 
     /**
     * Returns the position of the first element in the selector relative to the viewport
-    * @memberOf svelte
+    * @memberOf Svelte
     * @returns TextRectangle object
     * @example
     * $('.position').position();
     */
     position: function() {  
-        return this.s[0].getBoundingClientRect();
+        if(this.s.length > 0) {  
+            return this.s[0].getBoundingClientRect();
+        } else {
+            return null;
+        }
     },
 
     /**
     * Returns true if the element matches the selector string
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} selector Selector to match
     * @returns boolean
     * @example
@@ -600,15 +654,14 @@ var svelteProto = {
     */
     matches: function(selector) {  
         var el = this.s[0];
-        // Tidy up
         Element.prototype.matches =  Element.prototype.matches || Element.prototype.matchesSelector || Element.prototype.msMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.webkitMatchesSelector;
         return el.matches(selector);
     }
     
 };
 
-/** @constructor svelte */
-function svelte(selector, context) {
+/** @constructor Svelte */
+function Svelte(selector, context) {
     return Object.create(svelteProto, {        
         s: {
             get: function () {
@@ -633,8 +686,15 @@ function svelte(selector, context) {
     });
 }
 
+// AMD support
+if (typeof define === "function" && define.amd) {  
+    define(function() {
+        return Svelte;
+    });
+} 
+
 // Expose svelte to the world:-)
-window.$ = window.svelte = window.s = svelte;
+window.$ = window.Svelte = Svelte;
 
 // Expose functions to the world
 window.$.fn = svelteProto;
