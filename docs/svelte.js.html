@@ -26,26 +26,26 @@
     <section>
         <article>
             <pre class="prettyprint source"><code>/**
-* @fileOverview svelte - the lightweight modern JavaScript framework 
+* @fileOverview svelte - the lightweight modern DOM manipulation and events library
 * @author Matt Begent
-* @version 1.1.1
+* @version 1.3.0 
 */
 
 (function (window, document) {
 
 'use strict'; 
 
-var svelte = {
+var svelteProto = {
 
     /**
     * The dom ready function
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {function} callback Run functions when the dom is interactive or already loaded
-    * @returns svelte
+    * @returns Svelte
     * @example
     * domready(function() { });
     */
-    domready: function(callback){
+    domready: function(callback) {
         var readyState = document.readyState;
         if(readyState === 'complete' || readyState === 'loaded') { // if we are already go to go e.g. if using aync
             callback();
@@ -56,37 +56,37 @@ var svelte = {
 
     /**
     * Each loop
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {function} callback Function to be run on each selector
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.each').each(function() { });
     */
     each: function(callback) {  
-        [].forEach.call(this.selector, function(el) {
-            callback(el);
-        });
+        for (var i = 0, len = this.s.length; i &lt; len; i++) {
+            callback(this.s[i]);
+        }
         return this; 
     },
 
     /**
     * Find a new selector within a parent selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} selector Find a new selector within a parent selector
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.parent').find('.child');
     */
     find: function(selector) {
-        return $(selector, this.selector[0]);
+        return new Svelte(selector, this.s[0]);
     },
 
     /**
     * Set the CSS for an element
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} property Property of element to set
     * @param {string} value Value of property to set
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.color').css('color', 'red');
     */
@@ -96,14 +96,14 @@ var svelte = {
                 el.style[property] = value;
             });
         } else {
-            return getComputedStyle(this.selector[0])[property];
+            return getComputedStyle(this.s[0])[property];
         }
     },
 
     /**
     * Sets selector to display none
-    * @memberOf svelte
-    * @returns svelte
+    * @memberOf Svelte
+    * @returns Svelte
     * @example
     * $('.hide').hide();
     */
@@ -115,8 +115,8 @@ var svelte = {
 
     /**
     * Sets selector to display block
-    * @memberOf svelte
-    * @returns svelte
+    * @memberOf Svelte
+    * @returns Svelte
     * @example
     * $('.show').show();
     */
@@ -128,18 +128,22 @@ var svelte = {
 
     /**
     * Checks whether the selector is visible
-    * @memberOf svelte
+    * @memberOf Svelte
     * @returns Boolean
     * @example
     * $('.visible').visible();
     */
     visible: function() {
-        return this.selector[0].offsetWidth > 0 || this.selector[0].offsetHeight > 0;
+        if(this.s.length > 0) {
+            return this.s[0].offsetWidth > 0 || this.s[0].offsetHeight > 0;
+        } else {
+            return false;
+        }
     },
     
     /**
     * Toggles the display property of the selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @returns Boolean
     * @example
     * $('.visible').visible();
@@ -157,91 +161,68 @@ var svelte = {
 
     /**
     * Adds a class to the selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} className Name of class to add
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.class').addClass('another-class');
     */
     addClass: function(className) {  
         return this.each(function(el) {
-            if (el.classList) {
-                el.classList.add(className); 
-            } else { // IE9
-               el.className += ' ' + className; 
-            }
+            el.classList.add(className); 
         }); 
     },
 
     /**
     * Removes a class from the selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} className Name of class to remove
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.class remove-class').removeClass('remove-class');
     */
     removeClass: function(className) {  
         return this.each(function(el) {
-            if (el.classList) {
-                el.classList.remove(className);
-            } else { // IE9
-                el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
-            }
+            el.classList.remove(className);
         });
     },
 
     /**
     * Toggles a class from the selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} className Name of class to toggle
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.class toggle-class').toggleClass('toggle-class');
     */
     toggleClass: function(className) {  
         return this.each(function(el) {
-            if(el.classList) {
-                el.classList.toggle(className);
-            } else { // IE9
-
-                var classes = el.className.split(' ');
-                var existingIndex = classes.indexOf(className);
-
-                if (existingIndex >= 0) {
-                    classes.splice(existingIndex, 1);
-                } else {
-                    classes.push(className);
-                }  
-
-                el.className = classes.join(' ');
-
-            }
+            el.classList.toggle(className);
         });
     },
 
     /**
     * Checks whether the selector has a specific class
-    * @memberOf svelte
+    * @memberOf Svelte
     * @returns Boolean
     * @example
     * $('.class').hasClass('another-class');
     */
     hasClass: function(className) { 
-        var firstSelector = this.selector[0];
-        if(firstSelector.classList) {
-            return firstSelector.classList.contains(className);
+        if(this.s.length > 0) {
+            return this.s[0].classList.contains(className);
         } else {
-            return new RegExp('(^| )' + className + '( |$)', 'gi').test(firstSelector.className);
-        }  
+            return false;
+        }
+ 
     },
 
     /**
     * Attaches an event to the selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} name Name of event e.g. click
     * @param {function} callback Callback to run when event is triggered
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.click-me').on('click', function() { alert('Clicked!'); });
     */
@@ -253,10 +234,10 @@ var svelte = {
 
     /**
     * Attaches an event to the selector and removes after callback
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} name Name of event e.g. click
     * @param {function} callback Callback to run when event is triggered
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.click-me').one('click', function() { alert('Clicked!'); });
     */
@@ -272,10 +253,10 @@ var svelte = {
 
     /**
     * Removes an event from the selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} name Name of event e.g. click
     * @param {function} callback Callback to run when event is triggered
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.click-me').off('click', function() { alert('Clicked!'); });
     */
@@ -286,11 +267,39 @@ var svelte = {
     },
 
     /**
+    * Sets the first selector to be focussed
+    * @memberOf Svelte
+    * @returns Svelte
+    * @example
+    * $('.focus').focus();
+    */
+    focus: function() {  
+        if(this.s.length > 0) {
+            this.s[0].focus();
+        }
+        return this;
+    },
+
+    /**
+    * Removes keyboard focus from first selector
+    * @memberOf Svelte
+    * @returns Svelte
+    * @example
+    * $('.blur').blur();
+    */
+    blur: function() {  
+        if(this.s.length > 0) {
+            this.s[0].blur();
+        }
+        return this;
+    },
+
+    /**
     * Trigger an event from the selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} name Name of event e.g. click
     * @param {object} detail The data passed when initializing the event
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.click-me').trigger('click');
     */
@@ -307,7 +316,7 @@ var svelte = {
 
     /**
     * Ajax function
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {object} options Ajax options
     * @example 
         $.fn.ajax({
@@ -353,83 +362,101 @@ var svelte = {
 
     /**
     * Find the previous sibling to the current selector
-    * @memberOf svelte
-    * @returns svelte
+    * @memberOf Svelte
+    * @returns Svelte
     * @example
     * $('.selector').prev();
     */
     prev: function() {  
-        this.selector = this.selector[0].previousElementSibling;
+        if(this.s.length > 0) {
+            this.s = this.s[0].previousElementSibling;
+        } else {
+            this.s = [];
+        }
         return this;
     },
 
     /**
     * Find the next sibling to the current selector
-    * @memberOf svelte
-    * @returns svelte
+    * @memberOf Svelte
+    * @returns Svelte
     * @example
     * $('.selector').next();
     */
     next: function() {  
-        this.selector = this.selector[0].nextElementSibling;
+        if(this.s.length > 0) {
+            this.s = this.s[0].nextElementSibling;
+        } else {
+            this.s = [];
+        }
         return this;
     },
 
     /**
     * Find the first element of the selector
-    * @memberOf svelte
-    * @returns svelte
+    * @memberOf Svelte
+    * @returns Svelte
     * @example
     * $('.selector').first();
     */
-    first: function() {         
-        this.selector = this.selector[0];
+    first: function() {    
+        if(this.s.length > 0) {     
+            this.s = this.s[0];
+        } 
         return this;
     },
 
     /**
     * Find the last element of the selector
-    * @memberOf svelte
-    * @returns svelte
+    * @memberOf Svelte
+    * @returns Svelte
     * @example
     * $('.selector').last();
     */
     last: function() {  
-        var arrayLength = this.selector.length;
-        this.selector = this.selector.slice(arrayLength-1,arrayLength);
+        if(this.s.length > 0) {  
+            var arrayLength = this.s.length;
+            this.s = this.s.slice(arrayLength-1,arrayLength);
+        }
         return this;
     },
 
     /**
     * Find the parent of the selector
-    * @memberOf svelte
-    * @returns svelte
+    * @memberOf Svelte
+    * @returns Svelte
     * @example
     * $('.selector').parent();
     */
     parent: function() {  
-        this.selector = this.selector[0].parentNode;
+        if(this.s.length > 0) {  
+            this.s = this.s[0].parentNode;
+        }
         return this;
     },
 
     /**
     * Find the children of the selector
-    * @memberOf svelte
-    * @returns svelte
+    * @memberOf Svelte
+    * @returns Svelte
     * @example
     * $('.selector').children();
     */
     children: function() {  
-        this.selector.slice.call(this.selector[0].children);
+        if(this.s.length > 0) {  
+            this.s.slice.call(this.s[0].children);
+        } else {
+            this.s = [];
+        }
         return this;
     },
 
     /**
     * Add HTML to the page in relation to the current selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} position The position to add the html - before, after, atstart, atend
     * @param {string} html The HTML to add
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.html').append('before','&lt;p>I am before&lt;/p>');
     */
@@ -437,10 +464,10 @@ var svelte = {
         return this.each(function(el) {
 
             switch(position.toLowerCase()){
-                case 'before': return el.insertAdjacentHTML('beforebegin',html);
-                case 'after': return el.insertAdjacentHTML('afterend',html);
-                case 'atstart': return el.insertAdjacentHTML('afterbegin',html);
-                case 'atend': return el.insertAdjacentHTML('beforeend',html);
+                case 'before': return el.insertAdjacentHTML('beforebegin', html);
+                case 'after': return el.insertAdjacentHTML('afterend', html);
+                case 'atstart': return el.insertAdjacentHTML('afterbegin', html);
+                case 'atend': return el.insertAdjacentHTML('beforeend', html);
             }
 
         });
@@ -448,9 +475,9 @@ var svelte = {
 
     /**
     * Set the text of a selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} text Text to set
-    * @returns svelte or text
+    * @returns Svelte or text
     * @example
     * $('.text').text('Some text.');
     */
@@ -460,15 +487,15 @@ var svelte = {
                 el.textContent = text;
             });
         } else {
-            return this.selector[0].textContent.trim();
+            return this.s[0].textContent.trim();
         }
     },
 
     /**
     * Set the HTML of a selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} html HTML to set
-    * @returns svelte or HTML
+    * @returns Svelte or HTML
     * @example
     * $('.text').html('&lt;span>A span.&lt;/span>');
     */
@@ -478,15 +505,15 @@ var svelte = {
                 el.innerHTML = html;
             });
         } else {
-            return this.selector[0].innerHTML;
+            return this.s[0].innerHTML;
         }
     },
 
     /**
     * Set the outerHTML of a selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} html HTML to set
-    * @returns svelte or HTML
+    * @returns Svelte or HTML
     * @example
     * $('.text').outerHTML('&lt;span>A span.&lt;/span>');
     */
@@ -496,14 +523,14 @@ var svelte = {
                 el.outerHTML = html;
             });
         } else {
-            return this.selector[0].outerHTML;
+            return this.s[0].outerHTML;
         }
     },
 
     /**
     * Empty the HTML of a selector
-    * @memberOf svelte
-    * @returns svelte
+    * @memberOf Svelte
+    * @returns Svelte
     * @example
     * $('.empty-me').empty();
     */
@@ -515,8 +542,8 @@ var svelte = {
 
     /**
     * Clone a selector
-    * @memberOf svelte
-    * @returns svelte
+    * @memberOf Svelte
+    * @returns Svelte
     * @example
     * $('.empty-me').clone();
     */
@@ -528,8 +555,8 @@ var svelte = {
 
     /**
     * Removes a selector
-    * @memberOf svelte
-    * @returns svelte
+    * @memberOf Svelte
+    * @returns Svelte
     * @example
     * $('.remove-me').remove();
     */
@@ -541,17 +568,17 @@ var svelte = {
 
     /**
     * Get or set the attribute of a selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} name Attr to get or set
     * @param {string} value Value to set
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.get-attr').attr('data-attr');
     * $('.set-attr').attr('data-attr','Value');
     */
     attr: function(name, value) {  
         if(!value) {
-            return this.selector[0].getAttribute(name);
+            return this.s[0].getAttribute(name);
         } else {
             return this.each(function(el) {
                 el.setAttribute(name, value);
@@ -561,9 +588,9 @@ var svelte = {
 
     /**
     * Remove an attribute from a selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} name Attr to remove
-    * @returns svelte
+    * @returns Svelte
     * @example
     * $('.attr').removeAttr('data-attr');
     */
@@ -575,110 +602,106 @@ var svelte = {
 
     /**
     * Get the value of a selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @returns value
     * @example
     * $('.input').val();
     */
     val: function() {
-        return this.selector[0].value;
+        if(this.s.length > 0) {  
+            return this.s[0].value;
+        } else {
+            return undefined;
+        }
     },
 
     /**
     * Get the number of matched elements in the selector
-    * @memberOf svelte
+    * @memberOf Svelte
     * @returns length
     * @example
     * $('.length').length();
     */
     length: function() {  
-        return this.selector.length;
+        return this.s.length;
     },
 
     /**
     * Get the height of the first element in the selector
-    * @memberOf svelte
-    * @returns height
+    * @memberOf Svelte
+    * @returns number height
     * @example
     * $('.height').height();
     */
     height: function() {  
-        return this.selector[0].offsetHeight;
+        if(this.s.length > 0) {  
+            return this.s[0].offsetHeight;
+        } else {
+            return null;
+        }
     },
 
     /**
     * Get the width of the first element in the selector
-    * @memberOf svelte
-    * @returns height
+    * @memberOf Svelte
+    * @returns number width
     * @example
     * $('.width').width();
     */
     width: function() {  
-        return this.selector[0].offsetWidth;
+        if(this.s.length > 0) {  
+            return this.s[0].offsetWidth;
+        } else {
+            return null;
+        }
     },
 
     /**
     * Returns the position of the first element in the selector relative to the viewport
-    * @memberOf svelte
+    * @memberOf Svelte
     * @returns TextRectangle object
     * @example
     * $('.position').position();
     */
     position: function() {  
-        return this.selector[0].getBoundingClientRect();
+        if(this.s.length > 0) {  
+            return this.s[0].getBoundingClientRect();
+        } else {
+            return null;
+        }
     },
 
     /**
     * Returns true if the element matches the selector string
-    * @memberOf svelte
+    * @memberOf Svelte
     * @param {string} selector Selector to match
     * @returns boolean
     * @example
     * $('.paragraph').matches('p');
     */
     matches: function(selector) {  
-        var el = this.selector[0];
-        // Tidy up
+        var el = this.s[0];
         Element.prototype.matches =  Element.prototype.matches || Element.prototype.matchesSelector || Element.prototype.msMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.webkitMatchesSelector;
         return el.matches(selector);
-    },
-
-    /**
-    * Animates elements using CSS a callback
-    * @memberOf svelte
-    * @param {string} name Name of animation
-    * @param {function} callback Callback after animation is complete
-    * @returns Svelte
-    * @example
-    * $('.animate').animate('fadeIn',  function() { console.log('Complete'); });
-    */
-    animate: function(name, callback) {
-
-        var current = this;
-        current.removeClass('sv-' + name);
-
-        function animationCallback() {
-            if(callback) {
-               callback(); 
-            }
-            if(name !== 'fadeOut') { // fadeOut retains state
-               current.removeClass('sv-' + name); 
-            }
-        }
-
-        current.addClass('sv-' + name).one('animationend', animationCallback).one('webkitAnimationEnd', animationCallback);
     }
     
 };
 
-/** @constructor svelte */
-function $(selector, context) {
-    return Object.create(svelte, {        
-        selector: {
+/** @constructor Svelte */
+function Svelte(selector, context) {
+    return Object.create(svelteProto, {        
+        s: {
             get: function () {
                 if(typeof selector  === 'string') {
                     var startAt = ((context  === 'string') ? document.querySelectorAll(selector) : context) || document; // tidy up
-                    return [].slice.call(startAt.querySelectorAll(selector));            
+                    var nl = startAt.querySelectorAll(selector);
+                    var arr = [];
+
+                    for (var i = 0, len = arr.length = nl.length; i &lt; len; i++) {
+                        arr[i] = nl[i];
+                    }
+
+                    return arr;            
                 } else {
                     return [selector]; // could be an object, dom node or a function but always kept in an array
                 }
@@ -686,27 +709,25 @@ function $(selector, context) {
             set: function(value) {
                 selector = value;
             }
-        },
-        name: {
-            value: 'svelte'
-        },
-        version: {
-            value: '1.1.1'
         }
     });
 }
 
+// AMD support
+if (typeof define === "function" && define.amd) {  
+    define(function() {
+        return Svelte;
+    });
+} 
+
 // Expose svelte to the world:-)
-window.$ = $;
+window.$ = window.Svelte = Svelte;
 
 // Expose functions to the world
-window.$.fn = window.$.svelte = svelte;
+window.$.fn = svelteProto;
 
 // Shortcut to domready
-window.domready = svelte.domready;
-
-// If using jQuery style
-window.$.ready = svelte.domready;
+window.domready = svelteProto.domready;
 
 }(window, document));   </code></pre>
         </article>
@@ -718,13 +739,13 @@ window.$.ready = svelte.domready;
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="svelte.html">svelte</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Svelte.html">Svelte</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Mon Aug 18 2014 19:03:21 GMT+0100 (BST)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.2.2</a> on Tue Apr 07 2015 09:43:15 GMT+0100 (BST)
 </footer>
 
 <script> prettyPrint(); </script>
