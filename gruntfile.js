@@ -29,7 +29,21 @@ module.exports = function(grunt) {
 
       jshint: {
         all: ['svelte.js']
-      }
+      },
+
+      qunit: {
+        all: ['test/index.html']
+      },
+
+      watch: {
+          scripts: {
+            files: ['*svelte.js'],
+            tasks: ['uglify','jshint','jsdoc','qunit'],
+            options: {
+              spawn: false,
+            },
+          },
+        }
 
     });
 
@@ -37,8 +51,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-jsdoc');
+    grunt.loadNpmTasks('grunt-contrib-qunit');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default Tasks
-    grunt.registerTask('default', ['uglify','jshint','jsdoc']);
+    grunt.registerTask('default', ['uglify','jshint','qunit','watch']); 
 
 };

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>svelte Tests</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+        <header role="banner">
+            <h1>svelte</h1>
+        </header>
+        
+        <main class="main" role="main">
+
+            <h2>css</h2>
+
+            <p class="test-css">Should be red.</p>
+
+            <h2>hide</h2>
+
+            <p class="test-hide">Should be hidden.</p>
+
+            <h2>show</h2>
+
+            <p class="test-show">Should be shown.</p>
+
+            <h2>toggle</h2>
+
+            <p class="test-toggle-trigger">Trigger</p>
+            <p class="test-toggle">Should toggle on click.</p>
+
+            <h2>addClass</h2>
+            <p class="test-addclass">I should have a class of another-class</p>
+
+            <h2>removeClass</h2>
+            <p class="test-removeclass">I shouldn't have a class of another-class</p>
+
+            <h2>toggleClass</h2>
+
+            <p class="test-toggleclass-trigger">Trigger</p>
+            <p class="test-toggleclass">another-class should be toggled on click</p>
+
+            <h2>hasClass</h2>
+
+            <p class="test-hasclass test-i-have-this-class">I have the class "test-i-have-this-class" - <span class="test-hasclass-result"></span></p>
+
+            <h2>getAttr</h2>
+
+            <p data-attr="Testing attr" class="test-attr">Testing attributes</p>
+
+<!--             <h2>on</h2>
+
+            <h2>off</h2>
+
+            <h2>trigger</h2> -->
+
+            <h2>ajax</h2>
+
+            <p class="test-json"></p>
+
+            <input id="value" value="Test" />
+
+            <select id="select">
+                <option value="selectedvalue">Selected</option>
+            </select>
+
+            <div class="visible">
+                Visible
+            </div>
+
+            <div class="not-visible" style="display: none;">
+                Not Visible
+            </div>
+
+        </main>
+
+        <footer role="contentinfo" class="cool">
+            <p><small>&copy; svelte</small></p>
+        </footer>
+
+    </div>
+
+    <script src="../svelte.js"></script>
+    <script>
+    domready(function() {
+
+        //$('#value').focus();
+
+
+        // $.fn.hide = function() {
+        //     return "yo";
+        // }
+
+        // $('body').one('click', function() {
+        //     alert('yo');
+        // });
+
+        console.log($('.test-css').hasClass('test-css'));
+        console.log($("body",'p'));
+
+        //console.log($('main').find('p').css('color', 'orange'));
+
+        console.log($('.test-css').first());
+
+        console.log($(".visible").visible());
+        console.log($(".not-visible").visible());
+
+        console.log($('main').children());
+
+        //$('main').children().css('background-color', 'pink');
+
+        $('p').each(function(el) {
+            $(el).css('color', 'pink');
+        });
+
+
+        $(".test-css").css("color","red").css("border","1px solid red");
+
+        $(".test-hide").hide();
+
+        $(".test-show").show();
+
+        $("p").on("click", function(e) {
+            e.preventDefault();
+            console.log($(this).css('background-color', 'orange'));
+            // console.log(e);
+            // console.log(e.currentTarget);
+            // console.log($(e.currentTarget))
+            if($(e.currentTarget).matches(".test-toggle-trigger")) {
+                $(".test-toggle").toggle();
+            } else {
+                alert("Nope!");
+            }
+        });
+
+        $(".test-addclass").addClass("another-class");
+
+        $(".test-removeclass").removeClass("another-class");
+
+        $(".test-toggleclass-trigger").on("click", function(e) {
+            e.preventDefault();
+            $(".test-toggleclass").toggleClass("another-class");
+        });
+
+        var hasClassTest = $(".test-hasclass").hasClass("test-i-have-this-class");
+        $(".test-hasclass-result").text(hasClassTest);
+
+        console.log($(".test-show").matches("div"));
+
+        console.log($("#value").val());
+        console.log($("#select").val());
+        console.log($("body").find('.test-show'));
+
+        console.log($(".test-attr").attr('data-attr'));
+
+        console.log($('.test-toggle-trigger').s[0].getBoundingClientRect().left);
+
+        // Ajax
+        $.fn.ajax({
+            url: "data/test.json",
+            type: "GET",
+            success: function(data) {
+                $(".test-json").text(data);
+            },
+            error: function() {
+                $(".test-json").text("An error has occurred");
+            }
+        });
+
+        // $.fn.cool = function() {
+        //     return this.each(function(el) {
+        //         el.textContent = 'Cool';
+        //     });
+        // }
+
+        // console.log($.fn);
+
+        // $('.cool').cool();
+
+        //$('.test-toggle-trigger').trigger('click');
+
+        
+
+
+
+
+
+
+    });
+    </script>
+
+</body>
+</html>

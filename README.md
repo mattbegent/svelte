@@ -101,7 +101,6 @@ Roadmap
 
 * Complete unit testing
 * Performance testing
-* Comprehensive documentation
 
 Get Involved
 ---------------------

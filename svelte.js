@@ -415,7 +415,7 @@ var svelteProto = {
     * @example
     * $('.selector').children();
     */
-    children: function() {  
+    children: function() {
         if(this.s.length > 0) {  
             this.s.slice.call(this.s[0].children);
         } else {

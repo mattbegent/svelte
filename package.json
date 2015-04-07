@@ -7,8 +7,10 @@
   },
   "devDependencies": {
     "grunt": "*",
-    "grunt-jsdoc": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-qunit": "^0.7.0",
     "grunt-contrib-uglify": "*",
-    "grunt-contrib-jshint": "*"
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-jsdoc": "*"
   }
 }
