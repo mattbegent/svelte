@@ -518,6 +518,7 @@ var svelteProto = {
     * $('.input').val();
     */
     val: function(value) {
+        if(value) {
             return this.each(function(el) {
                 el.value = value;
             });
