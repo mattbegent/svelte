@@ -1,7 +1,7 @@
 /**
 * @fileOverview svelte - the lightweight modern DOM manipulation and events library
 * @author Matt Begent
-* @version 1.4.0
+* @version 1.4.1
 */
 
 (function (window, document) {
@@ -517,11 +517,16 @@ var svelteProto = {
     * @example
     * $('.input').val();
     */
-    val: function() {
-        if(this.s.length > 0) {  
-            return this.s[0].value;
+    val: function(value) {
+            return this.each(function(el) {
+                el.value = value;
+            });
         } else {
-            return undefined;
+            if(this.s.length > 0) {  
+                return this.s[0].value;
+            } else {
+                return undefined;
+            }
         }
     },
 

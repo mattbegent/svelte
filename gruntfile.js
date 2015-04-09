@@ -19,7 +19,7 @@ module.exports = function(grunt) {
         dist : {
             options: {
                 sourceMap: false,
-                banner: '/* svelte - 1.4.0 */'
+                banner: '/* svelte - 1.4.1 */'
             },
             files: {
                 'svelte.min.js': ['svelte.js'],

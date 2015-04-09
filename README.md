@@ -66,7 +66,7 @@ API
 * remove()
 * attr(name, (value))
 * removeAttr(name)
-* val()
+* val((value))
 * length()
 * height()
 * width()
