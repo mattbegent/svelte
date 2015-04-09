@@ -1,7 +1,7 @@
 /**
 * @fileOverview svelte - the lightweight modern DOM manipulation and events library
 * @author Matt Begent
-* @version 1.3.0 
+* @version 1.4.0
 */
 
 (function (window, document) {
@@ -9,23 +9,6 @@
 'use strict'; 
 
 var svelteProto = {
-
-    /**
-    * The dom ready function
-    * @memberOf Svelte
-    * @param {function} callback Run functions when the dom is interactive or already loaded
-    * @returns Svelte
-    * @example
-    * domready(function() { });
-    */
-    domready: function(callback) {
-        var readyState = document.readyState;
-        if(readyState === 'complete' || readyState === 'loaded') { // if we are already go to go e.g. if using aync
-            callback();
-        } else {
-            document.addEventListener('DOMContentLoaded', callback);
-        }
-    },
 
     /**
     * Each loop
@@ -285,52 +268,6 @@ var svelteProto = {
             
             el.dispatchEvent(triggerEvent);
         });
-    },
-
-    /**
-    * Ajax function
-    * @memberOf Svelte
-    * @param {object} options Ajax options
-    * @example 
-        $.fn.ajax({
-            url: "data/test.json",
-            type: "GET",
-            success: function(data) {
-                $(".test-json").text(data);
-            },
-            error: function() {
-                $(".test-json").text("An error has occurred");
-            }
-        });
-    */
-    ajax: function(options) {
-
-        var httpRequest = new XMLHttpRequest();
-        options.url = options.url || location.href;
-        options.data = options.data || null;
-        options.type = options.type || 'GET';
-        options.cache = options.cache || true;
-        options.success = options.success || function() {};
-        options.error = options.error || function() {};
-
-        var pageUrl = ((!options.cache) ? options.url : (options.url + ((/\?/).test(options.url) ? "&" : "?") + (new Date()).getTime()));
-
-        httpRequest.open(options.type, pageUrl);
-        if(options.type === 'POST') {
-            httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-        }
-        httpRequest.send(options.data);
-
-        httpRequest.onreadystatechange = function() {
-            if (httpRequest.readyState === 4) {
-                if (httpRequest.status === 200) {
-                    options.success(httpRequest.responseText);
-                } else {
-                    options.error(httpRequest.statusText);
-                }
-            }
-        };
-
     },
 
     /**
@@ -693,6 +630,21 @@ if (typeof define === "function" && define.amd) {
     });
 } 
 
+/**
+* The dom ready function
+* @param {function} callback Run functions when the dom is interactive or already loaded
+* @example
+* domready(function() { });
+*/
+function domready(callback) {
+    var readyState = document.readyState;
+    if(readyState === 'complete' || readyState === 'loaded') { // if we are already go to go e.g. if using aync
+        callback();
+    } else {
+        document.addEventListener('DOMContentLoaded', callback);
+    }
+}
+
 // Expose svelte to the world:-)
 window.$ = window.Svelte = Svelte;
 
@@ -700,6 +652,6 @@ window.$ = window.Svelte = Svelte;
 window.$.fn = svelteProto;
 
 // Shortcut to domready
-window.domready = svelteProto.domready;
+window.domready = domready;
 
 }(window, document));   

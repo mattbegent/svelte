@@ -4,7 +4,7 @@ svelte
 What is svelte?
 ---------------------
 
-It is a lightweight modern JavaScript library (4.57KB minified) intended for use on projects where legacy browser support is not necessary.
+It is a lightweight modern JavaScript library (3.93KB minified) intended for use on projects where legacy browser support is not necessary.
 
 It uses mordern JavaScript (querySelectorAll, classList, matchesSelector) to help make it as lightweight as possible and therefore only works on the latest version of mordern browsers E.g. Chrome, Firefox, Opera, IE10+.
 
@@ -52,7 +52,6 @@ API
 * focus()
 * blur()
 * trigger(eventName, detail)
-* ajax({ url: url, data: data, type: type, cache: true, success: sucess, error: error }})
 * next()
 * first(selector)
 * last()
@@ -85,7 +84,19 @@ You can easily add a custom function to svelte by adding to $.fn.
 	    });
 	}
 	
-	$('.says-cool').cool();
+	$('.says-cool').cool();	
+
+Ajax	
+---------------------
+
+The svelte ajax function was removed in version 1.4.0. Instead it is recommended that you use the [fetch api](https://fetch.spec.whatwg.org/). There is a version of svelte bundled with a [fetch](https://github.com/github/fetch) and promises [polyfill](https://github.com/jakearchibald/es6-promise) svelte.fetch.min.js.
+
+	fetch('/test.html')
+	.then(function(response) {
+		return response.text()
+	}).then(function(body) {
+		document.body.innerHTML = body
+	})
 
 IE9	
 ---------------------
@@ -100,7 +111,6 @@ Roadmap
 ---------------------
 
 * Complete unit testing
-* Performance testing
 
 Get Involved
 ---------------------
