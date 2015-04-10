@@ -26,16 +26,19 @@
   <div class="test-first is-second"></div>
   <div class="test-first is-second"></div>
   <div class="test-parent"></div>
+  <input type="text" class="test-value" value="test" style="display: none;" />
+  <input type="text" class="test-value-set" value="another" style="display: none;" />
 
   <script src="../svelte.js"></script>
   <script src="http://code.jquery.com/qunit/qunit-1.17.1.js"></script>
   <script>
 
     QUnit.test( "Requirements", function() {
-        expect(9);
+        expect(10);
         ok( document.querySelectorAll, "querySelectorAll" );
         ok( Array.prototype.slice, "Array.slice()" );
         ok( document.addEventListener, "document.addEventListener" );
+        ok( Array.prototype.forEach, "Array.forEach()" );
         ok( "classList" in document.createElement("_"), "classList" );
         ok( "insertAdjacentHTML" in document.createElement("_"), "insertAdjacentHTML" );
         ok( Element.prototype.matches || Element.prototype.matchesSelector || Element.prototype.msMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.webkitMatchesSelector, "matchesSelector" );
@@ -103,6 +106,12 @@
 
     QUnit.test( "Parent", function() {
         equal( $(".test-parent").parent().s[0] === document.body, true, "Parent returns parent selector" );
+    });
+
+    QUnit.test( "Val", function() {
+        equal( $(".test-value").val() === 'test', true, "Val returns correct value" );
+        $(".test-value-set").val('set test')
+        equal( $(".test-value-set").val() === 'set test', true, "Val sets correctly" );
     });
 
 

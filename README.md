@@ -4,7 +4,7 @@ svelte
 What is svelte?
 ---------------------
 
-It is a lightweight modern JavaScript library (3.93KB minified) intended for use on projects where legacy browser support is not necessary.
+It is a lightweight modern JavaScript library (4.1KB minified) intended for use on projects where legacy browser support is not necessary.
 
 It uses mordern JavaScript (querySelectorAll, classList, matchesSelector) to help make it as lightweight as possible and therefore only works on the latest version of mordern browsers E.g. Chrome, Firefox, Opera, IE10+.
 

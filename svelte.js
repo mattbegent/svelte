@@ -183,15 +183,11 @@ var svelteProto = {
     * $('.click-me').on('click', function() { alert('Clicked!'); });
     */
     on: function(name, callback) {
-
         return this.each(function(el) {
-
-          name.split(' ').forEach(function(ev){
-            el.addEventListener(ev, callback);
-          });
-
+            name.split(' ').forEach(function(ev){
+                el.addEventListener(ev, callback);
+            });
         });
-
     },
 
     /**
@@ -205,17 +201,13 @@ var svelteProto = {
     */
     one: function(name, callback) {
         return this.each(function(el) {
-
-          name.split(' ').forEach(function(ev){
-
-            var callbackWithRemove = function() {
-                callback();
-                el.removeEventListener(name, callbackWithRemove); // remove event
-            };
-            el.addEventListener(name, callbackWithRemove);
-
-          });
-
+            name.split(' ').forEach(function(ev){
+                var callbackWithRemove = function() {
+                    callback();
+                    el.removeEventListener(name, callbackWithRemove); // remove event
+                };
+                el.addEventListener(name, callbackWithRemove);
+            });
         });
     },
 
@@ -229,13 +221,10 @@ var svelteProto = {
     * $('.click-me').off('click', function() { alert('Clicked!'); });
     */
     off: function(name, callback) {
-
         return this.each(function(el) {
-
-          name.split(' ').forEach(function(ev){
-            el.removeEventListener(name, callback);
-          });
-
+            name.split(' ').forEach(function(ev){
+                el.removeEventListener(name, callback);
+            });
         });
     },
 
@@ -530,6 +519,7 @@ var svelteProto = {
     /**
     * Get the value of a selector
     * @memberOf Svelte
+    * @param {string} value Value to set
     * @returns value
     * @example
     * $('.input').val();
