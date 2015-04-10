@@ -161,37 +161,6 @@
 
         console.log($('.test-toggle-trigger').s[0].getBoundingClientRect().left);
 
-        // Ajax
-        $.fn.ajax({
-            url: "data/test.json",
-            type: "GET",
-            success: function(data) {
-                $(".test-json").text(data);
-            },
-            error: function() {
-                $(".test-json").text("An error has occurred");
-            }
-        });
-
-        // $.fn.cool = function() {
-        //     return this.each(function(el) {
-        //         el.textContent = 'Cool';
-        //     });
-        // }
-
-        // console.log($.fn);
-
-        // $('.cool').cool();
-
-        //$('.test-toggle-trigger').trigger('click');
-
-        
-
-
-
-
-
-
     });
     </script>
 

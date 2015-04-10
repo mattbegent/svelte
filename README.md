@@ -28,7 +28,7 @@ You can also install svelte using bower:
 How To
 ---------------------
 
-Examples of every function can be found on the test page. If you have used other JavaScript like Zepto or jQuery most functions will be familiar to you. For example, to set the text of an element, you would write:
+Examples of every function can be found on the test page. If you have used other JavaScript libraries like Zepto or jQuery most functions will be familiar to you. For example, to set the text of an element, you would write:
 
 	$('.hello').text('Hello svelte');
 
