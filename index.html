@@ -23,7 +23,7 @@
 
             <section class="section">
                 <h2>What is svelte?</h2>
-                <p>svelte is a lightweight modern JavaScript library (4.57KB minified) intended for use on projects where legacy browser support is not necessary.</p>
+                <p>svelte is a lightweight modern JavaScript library (4.1KB minified) intended for use on projects where legacy browser support is not necessary.</p>
                 <p>It uses mordern JavaScript (querySelectorAll, classList, matchesSelector) to help make it as lightweight as possible and therefore only works on the latest version of mordern browsers E.g. Chrome, Firefox, Opera, IE10+.</p>
             </section>
 
@@ -57,7 +57,6 @@
                     <li>focus()</li>
                     <li>blur()</li>
                     <li>trigger(eventName, detail)</li>
-                    <li>ajax({ url: url, data: data, type: type, cache: true, success: sucess, error: error }})</li>
                     <li>next()</li>
                     <li>first()</li>
                     <li>last()</li>
@@ -72,7 +71,7 @@
                     <li>remove()</li>
                     <li>attr(name, (value))</li>
                     <li>removeAttr(name)</li>
-                    <li>val()</li>
+                    <li>val((value))</li>
                     <li>length()</li>
                     <li>height()</li>
                     <li>width()</li>
@@ -93,6 +92,29 @@
 }
 
 $('.says-cool').cool();</pre>
+                </code>
+            </section>
+
+            <section class="section">
+                <h2>Ajax</h2>
+                <p>The svelte ajax function was removed in version 1.4.0. Instead it is recommended that you use the <a href="https://fetch.spec.whatwg.org/" rel="external" target="_blank">fetch api</a>. There is a version of svelte bundled with a <a href="https://github.com/github/fetch" rel="external" target="_blank">fetch</a> and <a href="https://github.com/jakearchibald/es6-promise" rel="external" target="_blank">polyfill</a> polyfill svelte.fetch.min.js.</p>
+                <code>
+<pre>fetch('/test.html')
+.then(function(response) {
+    return response.text()
+}).then(function(body) {
+    document.body.innerHTML = body
+})</pre>
+                </code>
+            </section> 
+
+            <section class="section">
+                <h2>IE9</h2>
+                <p>If you need to support IE9, you will need to use a pollyfill for ClassList like <a href="https://github.com/remy/polyfills/blob/master/classList.js" rel="external" target="_blank">this one</a> and put it somewhere before svelte is included on the page.</p>
+                <code>
+<pre>&lt;!--[if IE 9]&gt;
+    &lt;script src="js/classlist.js"&gt;&lt;/script&gt;
+&lt;![endif]--&gt;</pre>
                 </code>
             </section>
 
