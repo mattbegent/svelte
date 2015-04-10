@@ -6,7 +6,7 @@
 
 (function (window, document) {
 
-'use strict'; 
+'use strict';
 
 var svelteProto = {
 
@@ -18,11 +18,11 @@ var svelteProto = {
     * @example
     * $('.each').each(function() { });
     */
-    each: function(callback) {  
+    each: function(callback) {
         for (var i = 0, len = this.s.length; i < len; i++) {
             callback(this.s[i]);
         }
-        return this; 
+        return this;
     },
 
     /**
@@ -46,7 +46,7 @@ var svelteProto = {
     * @example
     * $('.color').css('color', 'red');
     */
-    css: function(property, value) {  
+    css: function(property, value) {
         if(value) {
             return this.each(function(el) {
                 el.style[property] = value;
@@ -63,7 +63,7 @@ var svelteProto = {
     * @example
     * $('.hide').hide();
     */
-    hide: function() {  
+    hide: function() {
         return this.each(function(el) {
             el.style.display = 'none';
         });
@@ -76,7 +76,7 @@ var svelteProto = {
     * @example
     * $('.show').show();
     */
-    show: function() {  
+    show: function() {
         return this.each(function(el) {
             el.style.display = 'block';
         });
@@ -96,7 +96,7 @@ var svelteProto = {
             return false;
         }
     },
-    
+
     /**
     * Toggles the display property of the selector
     * @memberOf Svelte
@@ -104,7 +104,7 @@ var svelteProto = {
     * @example
     * $('.visible').visible();
     */
-    toggle: function() {  
+    toggle: function() {
         return this.each(function(el) {
             if(el.style.display === '' || el.style.display === 'block') {
                 el.style.display = 'none';
@@ -123,10 +123,10 @@ var svelteProto = {
     * @example
     * $('.class').addClass('another-class');
     */
-    addClass: function(className) {  
+    addClass: function(className) {
         return this.each(function(el) {
-            el.classList.add(className); 
-        }); 
+            el.classList.add(className);
+        });
     },
 
     /**
@@ -137,7 +137,7 @@ var svelteProto = {
     * @example
     * $('.class remove-class').removeClass('remove-class');
     */
-    removeClass: function(className) {  
+    removeClass: function(className) {
         return this.each(function(el) {
             el.classList.remove(className);
         });
@@ -151,7 +151,7 @@ var svelteProto = {
     * @example
     * $('.class toggle-class').toggleClass('toggle-class');
     */
-    toggleClass: function(className) {  
+    toggleClass: function(className) {
         return this.each(function(el) {
             el.classList.toggle(className);
         });
@@ -164,61 +164,78 @@ var svelteProto = {
     * @example
     * $('.class').hasClass('another-class');
     */
-    hasClass: function(className) { 
+    hasClass: function(className) {
         if(this.s.length > 0) {
             return this.s[0].classList.contains(className);
         } else {
             return false;
         }
- 
+
     },
 
     /**
     * Attaches an event to the selector
     * @memberOf Svelte
-    * @param {string} name Name of event e.g. click
+    * @param {string} name Name of event e.g. click or names of events separated by spaces e.g. 'keyup keydown'
     * @param {function} callback Callback to run when event is triggered
     * @returns Svelte
     * @example
     * $('.click-me').on('click', function() { alert('Clicked!'); });
     */
-    on: function(name, callback) {  
+    on: function(name, callback) {
+
         return this.each(function(el) {
-            el.addEventListener(name, callback);
+
+          name.split(' ').forEach(function(ev){
+            el.addEventListener(ev, callback);
+          });
+
         });
+
     },
 
     /**
     * Attaches an event to the selector and removes after callback
     * @memberOf Svelte
-    * @param {string} name Name of event e.g. click
+    * @param {string} name Name of event e.g. 'click' or names of events separated by spaces e.g. 'keyup keydown'
     * @param {function} callback Callback to run when event is triggered
     * @returns Svelte
     * @example
     * $('.click-me').one('click', function() { alert('Clicked!'); });
     */
-    one: function(name, callback) {  
+    one: function(name, callback) {
         return this.each(function(el) {
+
+          name.split(' ').forEach(function(ev){
+
             var callbackWithRemove = function() {
                 callback();
                 el.removeEventListener(name, callbackWithRemove); // remove event
             };
             el.addEventListener(name, callbackWithRemove);
+
+          });
+
         });
     },
 
     /**
     * Removes an event from the selector
     * @memberOf Svelte
-    * @param {string} name Name of event e.g. click
+    * @param {string} name Name of event e.g. click or names of events separated by spaces e.g. 'keyup keydown'
     * @param {function} callback Callback to run when event is triggered
     * @returns Svelte
     * @example
     * $('.click-me').off('click', function() { alert('Clicked!'); });
     */
-    off: function(name, callback) {  
+    off: function(name, callback) {
+
         return this.each(function(el) {
+
+          name.split(' ').forEach(function(ev){
             el.removeEventListener(name, callback);
+          });
+
         });
     },
 
@@ -229,7 +246,7 @@ var svelteProto = {
     * @example
     * $('.focus').focus();
     */
-    focus: function() {  
+    focus: function() {
         if(this.s.length > 0) {
             this.s[0].focus();
         }
@@ -243,7 +260,7 @@ var svelteProto = {
     * @example
     * $('.blur').blur();
     */
-    blur: function() {  
+    blur: function() {
         if(this.s.length > 0) {
             this.s[0].blur();
         }
@@ -261,11 +278,11 @@ var svelteProto = {
     */
     trigger: function(name, detail) {
         return this.each(function(el) {
-            var triggerEvent = ((detail) ? new CustomEvent(name, detail) : document.createEvent('HTMLEvents')); 
+            var triggerEvent = ((detail) ? new CustomEvent(name, detail) : document.createEvent('HTMLEvents'));
             if(!detail) {
                 triggerEvent.initEvent(name, true, false);
             }
-            
+
             el.dispatchEvent(triggerEvent);
         });
     },
@@ -277,7 +294,7 @@ var svelteProto = {
     * @example
     * $('.selector').prev();
     */
-    prev: function() {  
+    prev: function() {
         if(this.s.length > 0) {
             this.s = this.s[0].previousElementSibling;
         } else {
@@ -293,7 +310,7 @@ var svelteProto = {
     * @example
     * $('.selector').next();
     */
-    next: function() {  
+    next: function() {
         if(this.s.length > 0) {
             this.s = this.s[0].nextElementSibling;
         } else {
@@ -309,10 +326,10 @@ var svelteProto = {
     * @example
     * $('.selector').first();
     */
-    first: function() {    
-        if(this.s.length > 0) {     
+    first: function() {
+        if(this.s.length > 0) {
             this.s = this.s[0];
-        } 
+        }
         return this;
     },
 
@@ -323,8 +340,8 @@ var svelteProto = {
     * @example
     * $('.selector').last();
     */
-    last: function() {  
-        if(this.s.length > 0) {  
+    last: function() {
+        if(this.s.length > 0) {
             var arrayLength = this.s.length;
             this.s = this.s.slice(arrayLength-1,arrayLength);
         }
@@ -338,8 +355,8 @@ var svelteProto = {
     * @example
     * $('.selector').parent();
     */
-    parent: function() {  
-        if(this.s.length > 0) {  
+    parent: function() {
+        if(this.s.length > 0) {
             this.s = this.s[0].parentNode;
         }
         return this;
@@ -353,7 +370,7 @@ var svelteProto = {
     * $('.selector').children();
     */
     children: function() {
-        if(this.s.length > 0) {  
+        if(this.s.length > 0) {
             this.s.slice.call(this.s[0].children);
         } else {
             this.s = [];
@@ -370,7 +387,7 @@ var svelteProto = {
     * @example
     * $('.html').append('before','<p>I am before</p>');
     */
-    append: function(position, html) {  
+    append: function(position, html) {
         return this.each(function(el) {
 
             switch(position.toLowerCase()){
@@ -391,7 +408,7 @@ var svelteProto = {
     * @example
     * $('.text').text('Some text.');
     */
-    text: function(text) {  
+    text: function(text) {
         if(text) {
             return this.each(function(el) {
                 el.textContent = text;
@@ -409,7 +426,7 @@ var svelteProto = {
     * @example
     * $('.text').html('<span>A span.</span>');
     */
-    html: function(html) {  
+    html: function(html) {
         if(html) {
             return this.each(function(el) {
                 el.innerHTML = html;
@@ -427,7 +444,7 @@ var svelteProto = {
     * @example
     * $('.text').outerHTML('<span>A span.</span>');
     */
-    outerHTML: function(html) {  
+    outerHTML: function(html) {
         if(html) {
             return this.each(function(el) {
                 el.outerHTML = html;
@@ -444,7 +461,7 @@ var svelteProto = {
     * @example
     * $('.empty-me').empty();
     */
-    empty: function() {  
+    empty: function() {
         return this.each(function(el) {
             el.innerHTML = '';
         });
@@ -457,7 +474,7 @@ var svelteProto = {
     * @example
     * $('.empty-me').clone();
     */
-    clone: function() {  
+    clone: function() {
         return this.each(function(el) {
             el.clodeNode(true);
         });
@@ -470,7 +487,7 @@ var svelteProto = {
     * @example
     * $('.remove-me').remove();
     */
-    remove: function() { 
+    remove: function() {
         return this.each(function(el) {
             el.parentNode.removeChild(el);
         });
@@ -486,7 +503,7 @@ var svelteProto = {
     * $('.get-attr').attr('data-attr');
     * $('.set-attr').attr('data-attr','Value');
     */
-    attr: function(name, value) {  
+    attr: function(name, value) {
         if(!value) {
             return this.s[0].getAttribute(name);
         } else {
@@ -504,7 +521,7 @@ var svelteProto = {
     * @example
     * $('.attr').removeAttr('data-attr');
     */
-    removeAttr: function(name) {  
+    removeAttr: function(name) {
         return this.each(function(el) {
             el.removeAttribute(name);
         });
@@ -523,7 +540,7 @@ var svelteProto = {
                 el.value = value;
             });
         } else {
-            if(this.s.length > 0) {  
+            if(this.s.length > 0) {
                 return this.s[0].value;
             } else {
                 return undefined;
@@ -538,7 +555,7 @@ var svelteProto = {
     * @example
     * $('.length').length();
     */
-    length: function() {  
+    length: function() {
         return this.s.length;
     },
 
@@ -549,8 +566,8 @@ var svelteProto = {
     * @example
     * $('.height').height();
     */
-    height: function() {  
-        if(this.s.length > 0) {  
+    height: function() {
+        if(this.s.length > 0) {
             return this.s[0].offsetHeight;
         } else {
             return null;
@@ -564,8 +581,8 @@ var svelteProto = {
     * @example
     * $('.width').width();
     */
-    width: function() {  
-        if(this.s.length > 0) {  
+    width: function() {
+        if(this.s.length > 0) {
             return this.s[0].offsetWidth;
         } else {
             return null;
@@ -579,8 +596,8 @@ var svelteProto = {
     * @example
     * $('.position').position();
     */
-    position: function() {  
-        if(this.s.length > 0) {  
+    position: function() {
+        if(this.s.length > 0) {
             return this.s[0].getBoundingClientRect();
         } else {
             return null;
@@ -595,17 +612,17 @@ var svelteProto = {
     * @example
     * $('.paragraph').matches('p');
     */
-    matches: function(selector) {  
+    matches: function(selector) {
         var el = this.s[0];
         Element.prototype.matches =  Element.prototype.matches || Element.prototype.matchesSelector || Element.prototype.msMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.webkitMatchesSelector;
         return el.matches(selector);
     }
-    
+
 };
 
 /** @constructor Svelte */
 function Svelte(selector, context) {
-    return Object.create(svelteProto, {        
+    return Object.create(svelteProto, {
         s: {
             get: function () {
                 if(typeof selector  === 'string') {
@@ -617,7 +634,7 @@ function Svelte(selector, context) {
                         arr[i] = nl[i];
                     }
 
-                    return arr;            
+                    return arr;
                 } else {
                     return [selector]; // could be an object, dom node or a function but always kept in an array
                 }
@@ -630,11 +647,11 @@ function Svelte(selector, context) {
 }
 
 // AMD support
-if (typeof define === "function" && define.amd) {  
+if (typeof define === "function" && define.amd) {
     define(function() {
         return Svelte;
     });
-} 
+}
 
 /**
 * The dom ready function
@@ -660,4 +677,4 @@ window.$.fn = svelteProto;
 // Shortcut to domready
 window.domready = domready;
 
-}(window, document));   
+}(window, document));
