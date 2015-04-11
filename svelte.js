@@ -204,9 +204,9 @@ var svelteProto = {
             name.split(' ').forEach(function(ev){
                 var callbackWithRemove = function() {
                     callback();
-                    el.removeEventListener(name, callbackWithRemove); // remove event
+                    el.removeEventListener(ev, callbackWithRemove); // remove event
                 };
-                el.addEventListener(name, callbackWithRemove);
+                el.addEventListener(ev, callbackWithRemove);
             });
         });
     },
@@ -223,7 +223,7 @@ var svelteProto = {
     off: function(name, callback) {
         return this.each(function(el) {
             name.split(' ').forEach(function(ev){
-                el.removeEventListener(name, callback);
+                el.removeEventListener(ev, callback);
             });
         });
     },
@@ -271,7 +271,6 @@ var svelteProto = {
             if(!detail) {
                 triggerEvent.initEvent(name, true, false);
             }
-
             el.dispatchEvent(triggerEvent);
         });
     },
@@ -378,14 +377,12 @@ var svelteProto = {
     */
     append: function(position, html) {
         return this.each(function(el) {
-
             switch(position.toLowerCase()){
                 case 'before': return el.insertAdjacentHTML('beforebegin', html);
                 case 'after': return el.insertAdjacentHTML('afterend', html);
                 case 'atstart': return el.insertAdjacentHTML('afterbegin', html);
                 case 'atend': return el.insertAdjacentHTML('beforeend', html);
             }
-
         });
     },
 
