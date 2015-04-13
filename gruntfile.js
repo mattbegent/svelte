@@ -19,7 +19,7 @@ module.exports = function(grunt) {
         dist : {
             options: {
                 sourceMap: false,
-                banner: '/* svelte - 1.4.1 */'
+                banner: '/* svelte - 1.4.2 */'
             },
             files: {
                 'svelte.min.js': ['svelte.js'],
@@ -38,7 +38,7 @@ module.exports = function(grunt) {
       watch: {
           scripts: {
             files: ['*svelte.js'],
-            tasks: ['uglify','jshint','jsdoc','qunit'],
+            tasks: ['uglify','jshint','qunit'],
             options: {
               spawn: false,
             },

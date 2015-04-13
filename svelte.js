@@ -1,7 +1,7 @@
 /**
 * @fileOverview svelte - the lightweight modern DOM manipulation and events library
 * @author Matt Begent
-* @version 1.4.1
+* @version 1.4.2 
 */
 
 (function (window, document) {
@@ -640,28 +640,10 @@ if (typeof define === "function" && define.amd) {
     });
 }
 
-/**
-* The dom ready function
-* @param {function} callback Run functions when the dom is interactive or already loaded
-* @example
-* domready(function() { });
-*/
-function domready(callback) {
-    var readyState = document.readyState;
-    if(readyState === 'complete' || readyState === 'loaded') { // if we are already go to go e.g. if using aync
-        callback();
-    } else {
-        document.addEventListener('DOMContentLoaded', callback);
-    }
-}
-
 // Expose svelte to the world:-)
 window.$ = window.Svelte = Svelte;
 
 // Expose functions to the world
 window.$.fn = svelteProto;
-
-// Shortcut to domready
-window.domready = domready;
 
 }(window, document));

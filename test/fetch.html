@@ -28,16 +28,12 @@
 
     <script src="../svelte.fetch.min.js"></script> 
     <script>
-    domready(function() {
-
       fetch('data/test-fetch.html')
       .then(function(response) {
         return response.text()
       }).then(function(body) {
         document.body.innerHTML = body
       });
-
-    });
     </script>
 
 </body>
