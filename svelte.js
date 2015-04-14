@@ -600,8 +600,7 @@ var svelteProto = {
     * $('.paragraph').matches('p');
     */
     matches: function(selector) {
-        var el = this.s[0];
-        return el.matches(selector);
+        return this.s[0].matches(selector);
     },
 
     /**
@@ -613,8 +612,7 @@ var svelteProto = {
     * $('.logo').closest('.header');
     */
     closest: function(selector) {
-        var el = this.s[0];
-        return new Svelte(el.closest(selector));
+        return new Svelte(this.s[0].closest(selector));
     }
 
 };
