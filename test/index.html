@@ -34,17 +34,19 @@
   <script>
 
     QUnit.test( "Requirements", function() {
-        expect(10);
+        expect(12);
         ok( document.querySelectorAll, "querySelectorAll" );
         ok( Array.prototype.slice, "Array.slice()" );
         ok( document.addEventListener, "document.addEventListener" );
         ok( Array.prototype.forEach, "Array.forEach()" );
         ok( "classList" in document.createElement("_"), "classList" );
         ok( "insertAdjacentHTML" in document.createElement("_"), "insertAdjacentHTML" );
-        ok( Element.prototype.matches || Element.prototype.matchesSelector || Element.prototype.msMatchesSelector || Element.prototype.mozMatchesSelector || Element.prototype.webkitMatchesSelector, "matchesSelector" );
+        ok( Element.prototype.matches, "matches" );
+        ok( Element.prototype.closest, "closest" );
         ok( typeof Object.create === 'function', "object create");
+        ok( Svelte, "Svelte is available" );
         ok( $.fn, "svelte functions are available" );
-        ok( $, "$" );
+        ok( $, "$ is available" );
     });
 
     QUnit.test( "Selector", function() {
