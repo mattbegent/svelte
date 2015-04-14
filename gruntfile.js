@@ -9,11 +9,21 @@ module.exports = function(grunt) {
         browserName: "chrome",
         platform: "Windows 8.1",
         version: "41"
-    }, 
+    },
+    {
+        browserName: "chrome",
+        platform: "Windows 8.1",
+        version: "40"
+    },  
     {
         browserName: "firefox",
         platform: "Windows 8.1",
         version: "36"
+    },
+    {
+        browserName: "firefox",
+        platform: "Windows 8.1",
+        version: "35"
     }, 
     {
         browserName: "internet explorer",
@@ -29,6 +39,21 @@ module.exports = function(grunt) {
         browserName: 'safari', 
         version: '8', 
         platform: 'OS X 10.10' 
+    }, 
+    { 
+        browserName: 'safari', 
+        version: '7', 
+        platform: 'OS X 10.9' 
+    },
+    { 
+        browserName: 'iphone', 
+        version: '8.2', 
+        platform: 'OS X 10.10' 
+    },
+    { 
+        browserName: 'android', 
+        version: '4.4', 
+        platform: 'Linux' 
     }
     ];
 
@@ -66,7 +91,7 @@ module.exports = function(grunt) {
       connect: {
         server: {
           options: {
-            port: 5005,
+            port: 9999,
             base: '.'
           }
         }
@@ -85,9 +110,9 @@ module.exports = function(grunt) {
       'saucelabs-qunit': {
         all: {
             options: {
-                urls: ["http://localhost:5005/test/index.html"],
+                urls: ["http://127.0.0.1:9999/test/index.html"],
                 tunnelTimeout: 5,
-                build: 'build-142', //process.env.TRAVIS_JOB_ID
+                build: 'build-143', //process.env.TRAVIS_JOB_ID
                 concurrency: 3,
                 browsers: browsers,
                 testname: "qunit tests",
