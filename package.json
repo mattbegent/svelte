@@ -7,10 +7,15 @@
   },
   "devDependencies": {
     "grunt": "*",
+    "grunt-contrib-connect": "^0.10.1",
     "grunt-contrib-jshint": "*",
     "grunt-contrib-qunit": "^0.7.0",
     "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-jsdoc": "*"
+    "grunt-jsdoc": "*",
+    "grunt-saucelabs": "*"
+  },
+  "scripts": {
+    "test": "grunt test"
   }
 }
