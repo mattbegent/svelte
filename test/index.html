@@ -2,19 +2,22 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>svelte Test</title>
-  <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.17.1.css">
+  <title>svelte Tests</title>
+  <link rel="stylesheet" href="../test/css/vendor/qunit.css">
 </head>
 <body>
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
 
+  <!-- Tests -->
   <div class="test-selector"></div>
   <div id="test-selector-id"></div>
   <div class="test-class"></div>
   <div class="test-find">
     <div class="test-find-child"></div>
   </div>
+  <div class="test-length"></div>
+  <div class="test-length"></div>
   <div class="test-css" style="color: #FF0000;"></div>
   <div class="test-hide"></div>
   <div class="test-show"></div>
@@ -26,11 +29,30 @@
   <div class="test-first is-second"></div>
   <div class="test-first is-second"></div>
   <div class="test-parent"></div>
+  <div class="test-text">Testing text</div>
+  <div class="test-html"><span>Testing html</span></div> 
+  <div class="test-empty"><span>Testing empty</span></div>
+  <div class="test-remove"><span>Testing remove</span></div>
+  <div class="test-get-attr" data-test="test attribute"></div>
+  <div class="test-set-attr"></div>
+  <div class="test-remove-attr"></div>
   <input type="text" class="test-value" value="test" style="display: none;" />
   <input type="text" class="test-value-set" value="another" style="display: none;" />
+  <input type="text" class="test-focus" value="focus"/>
+  <input type="text" class="test-blur" value="blur"/>
+  <div class="test-height" style="height: 30px;"></div>
+  <div class="test-width" style="width: 31px;"></div>
+  <div class="test-position"></div>
+  <p class="test-matches"></p>
+  <div class="test-closest-wrapper">
+    <div class="test-closest-wrapper-inner">
+      <div class="test-closest"></div>
+    </div>
+  </div>
+  <!-- /Tests -->
 
   <script src="../svelte.js"></script>
-  <script src="http://code.jquery.com/qunit/qunit-1.17.1.js"></script>
+  <script src="../test/js/vendor/qunit.js"></script>
   <script>
 
     var log = [];
@@ -52,7 +74,7 @@
 
       window.global_test_results = test_results;
     });
-    
+
     QUnit.testStart(function(testDetails){
       QUnit.log(function(details){
         if (!details.result) {
@@ -62,7 +84,7 @@
       });
     });
 
-    QUnit.test( "Requirements", function() {
+    QUnit.test( "Svelte Requirements", function() {
         expect(12);
         ok( document.querySelectorAll, "querySelectorAll" );
         ok( Array.prototype.slice, "Array.slice()" );
@@ -90,6 +112,8 @@
         equal( $(".test-class").hasClass("test-class-2"), true, "Has class has class 2" );
         $(".test-class").removeClass("test-class-2");
         equal( $(".test-class").hasClass("test-class-2"), false, "Does have test class 2" );
+        $(".test-class").toggleClass("test-toggleclass");
+        equal( $(".test-class").hasClass("test-toggleclass"), true, "Does have test class toggle class" );
     });
 
     QUnit.test( "Find", function() {
@@ -99,6 +123,10 @@
 
     QUnit.test( "CSS", function() {
         equal( $(".test-css").css("color") === "rgb(255, 0, 0)", true, "Can retrieve css value" );
+    });
+
+    QUnit.test( "Length", function() {
+        equal( $(".test-length").length() === 2, true, "Length is returning correctly" );
     });
 
     QUnit.test( "Hide", function() {
@@ -139,12 +167,82 @@
         equal( $(".test-parent").parent().s[0] === document.body, true, "Parent returns parent selector" );
     });
 
+    QUnit.test( "Text", function() {
+        equal( $(".test-text").text() === 'Testing text', true, "Text returns correct text" );
+        equal( $(".test-text").text('Testing setting text').text() === 'Testing setting text', true, "Text sets correctly" );
+        $(".test-text").hide();
+    });
+
+    QUnit.test( "HTML", function() {
+        equal( $(".test-html").html() === '<span>Testing html</span>', true, "HTML returns correct html" );
+        equal( $(".test-html").outerHTML() === '<div class="test-html"><span>Testing html</span></div>', true, "outerHTML returns correct html" );
+        $(".test-html").hide();
+    });
+
+    QUnit.test( "Empty", function() {
+        $(".test-empty").empty();
+        equal(document.querySelector('.test-empty').innerHTML === '', true, "HTML returns correct html" );
+    });
+
+    QUnit.test( "Remove", function() {
+        $(".test-remove").remove();
+        equal(document.querySelector('.test-remove') === null, true, "Remove removes selector" );
+    });
+
+    QUnit.test( "Attributes", function() {
+        equal($('.test-get-attr').attr('data-test') === 'test attribute', true, "Attr returns correct attribute" );
+        $('.test-set-attr').attr('data-test-set', 'test setting attribute');
+        equal(document.querySelector('.test-set-attr').getAttribute('data-test-set') === 'test setting attribute', true, "Attr is setting correctly" );
+        $('.test-remove-attr').removeAttr('data-test-remove');
+        equal(document.querySelector('.test-remove-attr').getAttribute('data-test-remove') === null, true, "removeAttr is removing correctly" );
+    });
+
     QUnit.test( "Val", function() {
         equal( $(".test-value").val() === 'test', true, "Val returns correct value" );
-        $(".test-value-set").val('set test')
+        $(".test-value-set").val('set test');
         equal( $(".test-value-set").val() === 'set test', true, "Val sets correctly" );
     });
 
+    QUnit.test( "Focus", function() {
+        $(".test-focus").focus();
+        equal( document.activeElement.classList.contains("test-focus"), true, "Focus sets correctly" );
+        $(".test-focus").hide();
+    });
+
+    QUnit.test("Blur", function(assert) {
+        var done = assert.async();
+        $(".test-blur").focus();
+        $(".test-blur").blur();
+        setTimeout(function() {
+            equal( document.activeElement.classList.contains("test-blur"), false, "Blur removes focus correctly" );
+            done();
+        });
+        $(".test-blur").hide();
+    });
+
+    QUnit.test( "Height", function() {
+        equal( $(".test-height").height() === 30, true, "Height returns the correct value" );
+        $(".test-height").hide();
+    });
+
+    QUnit.test( "Width", function() {
+        equal( $(".test-width").width() === 31, true, "Width returns the correct value" );
+        $(".test-width").hide();
+    });
+
+    QUnit.test( "Position", function() {
+        equal( $('.test-position').position().top > 0, true, "Position top is more than 0" );
+        equal( $('.test-position').position().left > 0, true, "Position left is more than 0" );
+    });
+
+    QUnit.test( "Matches", function() {
+        equal( $('.test-matches').matches('p'), true, "Matches returns the correct value" );
+        equal( $('.test-matches').matches('div'), false, "Matches returns the correct value" );
+    });
+
+    QUnit.test( "Closest", function() {
+        equal( $('.test-closest').closest('.test-closest-wrapper').hasClass('test-closest-wrapper'), true, "Closest returns the correct selector" );
+    });
 
   </script>
 </body>

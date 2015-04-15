@@ -46,13 +46,17 @@ module.exports = function(grunt) {
         platform: 'OS X 10.9' 
     },
     { 
-        browserName: 'iphone', 
-        version: '8.2', 
-        platform: 'OS X 10.10' 
+        browserName: 'iphone',
+        version: '8.2'
     },
     { 
         browserName: 'android', 
         version: '4.4', 
+        platform: 'Linux' 
+    },
+    { 
+        browserName: 'android', 
+        version: '4.3', 
         platform: 'Linux' 
     }
     ];
@@ -112,7 +116,7 @@ module.exports = function(grunt) {
             options: {
                 urls: ["http://127.0.0.1:9999/test/index.html"],
                 tunnelTimeout: 5,
-                build: 'build-143', //process.env.TRAVIS_JOB_ID
+                build: 'build-1431', //process.env.TRAVIS_JOB_ID
                 concurrency: 3,
                 browsers: browsers,
                 testname: "qunit tests",

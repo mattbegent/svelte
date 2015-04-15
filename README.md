@@ -48,7 +48,7 @@ API
 * blur()
 * trigger(eventName, detail)
 * next()
-* first(selector)
+* first()
 * last()
 * parent()
 * children()
@@ -102,11 +102,6 @@ If you need to support IE9, you will need to use a pollyfill for ClassList like 
 	<!--[if IE 9]>
 		<script src="js/classlist.js"></script>
 	<![endif]-->
-
-Roadmap
----------------------
-
-* Complete unit testing
 
 Get Involved
 ---------------------
