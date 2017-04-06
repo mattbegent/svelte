@@ -9,7 +9,7 @@
     "grunt": "*",
     "grunt-contrib-connect": "^1.0.2",
     "grunt-contrib-jshint": "*",
-    "grunt-contrib-qunit": "^1.2.0",
+    "grunt-contrib-qunit": "^2.0.0",
     "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "^1.0.0",
     "grunt-jsdoc": "*",
