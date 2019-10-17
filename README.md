@@ -1,7 +1,7 @@
 svelte
 ======================================
 
-## This repo is for Svelte: a modern JavaScript libray. Go here if you're looking for [Svelte: Cybernetically enhanced web apps](https://github.com/sveltejs/svelte)
+## This repo is for Svelte: a modern JavaScript library. Go here if you're looking for [Svelte: Cybernetically enhanced web apps](https://github.com/sveltejs/svelte)
 
 What is svelte?
 ---------------------
