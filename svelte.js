@@ -102,7 +102,7 @@ var svelteProto = {
     * @memberOf Svelte
     * @returns Boolean
     * @example
-    * $('.visible').visible();
+    * $('.toggle').toggle();
     */
     toggle: function() {
         return this.each(function(el) {
